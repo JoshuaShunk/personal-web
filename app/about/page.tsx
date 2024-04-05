@@ -73,7 +73,7 @@ const aboutPage = () => {
                             <div className="avatar">
                               <div className="mask mask-squircle w-14 h-14">
                                 <Image
-                                  src="StanfordLogo.png"
+                                  src="/StanfordLogo.png"
                                   alt="Avatar Tailwind CSS Component"
                                 />
                               </div>
@@ -109,7 +109,7 @@ const aboutPage = () => {
                             <div className="avatar">
                               <div className="mask mask-squircle w-12 h-12">
                                 <Image
-                                  src="PerryLogo.png"
+                                  src="/PerryLogo.png"
                                   alt="Avatar Tailwind CSS Component"
                                 />
                               </div>
