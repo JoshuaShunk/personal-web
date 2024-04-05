@@ -28,18 +28,19 @@ const aboutPage = () => {
                   school education as the valedictorian of Perry High School,
                   achieving a GPA of 4.91. At the Regeneron Science Talent
                   Search, I was recognized for the development of
-                  "neuron-specific dropout". Beyond my academic and research
-                  achievements, I have demonstrated exemplary leadership in
-                  various extracurricular endeavors. As the Captain of the
-                  Varsity Division 1 Team for Basha-Perry Hockey, I exemplified
-                  dedication to athletics while maintaining academic excellence.
-                  In addition, I served as the President of the National Honors
-                  Society and the Math Club at Perry High School, initiating
-                  several transformative and inclusive projects. With a
-                  comprehensive foundation in Python and Java programming and a
-                  specialization in neural network optimization, I is poised to
-                  leverage artificial intelligence to address global challenges
-                  and welcomes opportunities for strategic collaboration.
+                  &quot;neuron-specific dropout&quot;. Beyond my academic and
+                  research achievements, I have demonstrated exemplary
+                  leadership in various extracurricular endeavors. As the
+                  Captain of the Varsity Division 1 Team for Basha-Perry Hockey,
+                  I exemplified dedication to athletics while maintaining
+                  academic excellence. In addition, I served as the President of
+                  the National Honors Society and the Math Club at Perry High
+                  School, initiating several transformative and inclusive
+                  projects. With a comprehensive foundation in Python and Java
+                  programming and a specialization in neural network
+                  optimization, I is poised to leverage artificial intelligence
+                  to address global challenges and welcomes opportunities for
+                  strategic collaboration.
                 </p>
               </div>
             </div>
