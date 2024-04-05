@@ -5,15 +5,16 @@ import Image from "next/image";
 const aboutPage = () => {
   return (
     <>
-      <h1 className="text-4xl font-bold ml-10">About Me</h1>
-      <div className="flex flex-col md:flex-row justify-end px-4">
-        <div className="md:w-1/2 flex justify-center md:justify-center items-center">
+      <h1 className="text-4xl font-bold ml-10 mb-4 md:mb-6">About Me</h1>{" "}
+      {/* Adjust mb-4 md:mb-6 as needed */}
+      <div className="flex flex-col md:flex-row justify-end px-4 items-center md:items-start">
+        <div className="w-full md:w-1/2 flex justify-center md:justify-start items-center mb-4 md:mb-0">
           <Image
             src="/joshuaheadshot.jpg"
             alt="Joshua Shunk"
-            width={500} // specify a width
-            height={500} // and height to ensure proper aspect ratio
-            className="w-2/3 md:w-full h-auto rounded-xl"
+            width={500}
+            height={500}
+            className="max-w-full h-auto md:max-w-xs lg:max-w-sm xl:max-w-md" // Adjust based on your requirements
           />
         </div>
         <div className="md:w-1/2 mx-auto flex flex-col items-center">
