@@ -9,7 +9,7 @@ const aboutPage = () => {
       <div className="flex justify-end px-4">
         <div className="w-1/2 flex justify-center items-center">
           <Image
-            src="joshuaheadshot.jpg"
+            src="/joshuaheadshot.jpg"
             alt="Image"
             className="w-2/3 h-auto rounded-xl"
           />
