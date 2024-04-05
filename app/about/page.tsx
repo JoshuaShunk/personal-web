@@ -6,15 +6,17 @@ const aboutPage = () => {
   return (
     <>
       <h1 className="text-4xl font-bold ml-10">About Me</h1>
-      <div className="flex justify-end px-4">
-        <div className="w-1/2 flex justify-center items-center">
+      <div className="flex flex-col md:flex-row justify-end px-4">
+        <div className="md:w-1/2 flex justify-center md:justify-center items-center">
           <Image
             src="/joshuaheadshot.jpg"
-            alt="Image"
-            className="w-2/3 h-auto rounded-xl"
+            alt="Joshua Shunk"
+            width={500} // specify a width
+            height={500} // and height to ensure proper aspect ratio
+            className="w-2/3 md:w-full h-auto rounded-xl"
           />
         </div>
-        <div className="w-1/2 mx-auto flex flex-col items-center">
+        <div className="md:w-1/2 mx-auto flex flex-col items-center">
           <div className="w-full md:w-3/4 lg:w-4/5">
             <div
               tabIndex={0}
