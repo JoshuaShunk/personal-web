@@ -21,12 +21,7 @@ const EducationPage = () => {
         <div className="timeline-start md:text-end mb-10">
           <time className="font-mono italic">2023-2027</time>
           <div className="text-lg font-black">Stanford University</div>
-          The Apple Macintosh—later rebranded as the Macintosh 128K—is the
-          original Apple Macintosh personal computer. It played a pivotal role
-          in establishing desktop publishing as a general office function. The
-          motherboard, a 9 in (23 cm) CRT monitor, and a floppy drive were
-          housed in a beige case with integrated carrying handle; it came with a
-          keyboard and single-button mouse.
+            Filler Text
         </div>
         <hr />
       </li>
@@ -50,13 +45,7 @@ const EducationPage = () => {
         <div className="timeline-start md:text-end mb-10">
           <time className="font-mono italic">2001</time>
           <div className="text-lg font-black">Perry High School</div>
-          The iPod is a discontinued series of portable media players and
-          multi-purpose mobile devices designed and marketed by Apple Inc. The
-          first version was released on October 23, 2001, about 8+1⁄2 months
-          after the Macintosh version of iTunes was released. Apple sold an
-          estimated 450 million iPod products as of 2022. Apple discontinued the
-          iPod product line on May 10, 2022. At over 20 years, the iPod brand is
-          the oldest to be discontinued by Apple
+          Filler Text
         </div>
         <hr />
       </li>

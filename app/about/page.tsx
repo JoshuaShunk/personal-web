@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+
 
 const aboutPage = () => {
   return (
@@ -6,7 +8,7 @@ const aboutPage = () => {
       <h1 className="text-4xl font-bold ml-10">About Me</h1>
       <div className="flex justify-end px-4">
         <div className="w-1/2 flex justify-center items-center">
-          <img
+          <Image
             src="joshuaheadshot.jpg"
             alt="Image"
             className="w-2/3 h-auto rounded-xl"
@@ -69,7 +71,7 @@ const aboutPage = () => {
                           <div className="flex items-center gap-3">
                             <div className="avatar">
                               <div className="mask mask-squircle w-14 h-14">
-                                <img
+                                <Image
                                   src="StanfordLogo.png"
                                   alt="Avatar Tailwind CSS Component"
                                 />
@@ -105,7 +107,7 @@ const aboutPage = () => {
                           <div className="flex items-center gap-3">
                             <div className="avatar">
                               <div className="mask mask-squircle w-12 h-12">
-                                <img
+                                <Image
                                   src="PerryLogo.png"
                                   alt="Avatar Tailwind CSS Component"
                                 />

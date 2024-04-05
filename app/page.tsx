@@ -64,9 +64,9 @@ export default function Home() {
 
         <div className="flex flex-col items-center">
           <div className="text-center max-w-md mt-4">
-            I'm a computer science major with a passion for machine learning,
-            algorithms, and web development. Currently studying computer science
-            @
+            I&#39;m a computer science major with a passion for machine
+            learning, algorithms, and web development. Currently studying
+            computer science @
             <div className="dropdown dropdown-hover inline-block">
               <span
                 tabIndex={0}
@@ -93,7 +93,7 @@ export default function Home() {
         <div className="flex justify-center space-x-10 mt-5">
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
             <figure className="px-10 pt-10">
-              <img
+              <Image
                 src={researchImage.src}
                 alt="Research"
                 className="rounded-xl"
@@ -108,7 +108,7 @@ export default function Home() {
           </div>
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
             <figure className="px-10 pt-10">
-              <img
+              <Image
                 src={researchImage.src}
                 alt="Projects"
                 className="rounded-xl"
