@@ -56,15 +56,15 @@ export default function Home() {
             <FaLinkedin size={50} />
           </Link>
         </div>
-        <div className="flex justify-center mb-5">
-          <Badge>Software Engineering</Badge>
-          <Badge>Machine Learning</Badge>
-          <Badge>Web Development</Badge>
+        <div className="flex justify-center mb-2">
+          <Badge className="mx-2">Software Engineering</Badge>
+          <Badge className="mx-2">Machine Learning</Badge>
+          <Badge className="mx-2">Web Development</Badge>
         </div>
 
         <div className="flex flex-col items-center">
           <div className="text-center max-w-md mt-4">
-            I'm a software engineer with a passion for machine learning,
+            I'm a computer science major with a passion for machine learning,
             algorithms, and web development. Currently studying computer science
             @
             <div className="dropdown dropdown-hover inline-block">
@@ -133,7 +133,9 @@ export default function Home() {
       </div>
 
       <div className="flex flex-col items-center">
-        <p className="text-gray-500 mb-4">Made w/ &#10084; by Josh</p>
+        <p className="text-gray-500 mb-4">
+          Made w/ &#160; &#10084; &#160; by Josh
+        </p>
         <Link
           href="https://github.com/JoshuaShunk/personal-web"
           target="_blank"
