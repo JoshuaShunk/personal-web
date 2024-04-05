@@ -90,7 +90,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex justify-center space-x-10 mt-5">
+        <div className="flex flex-col md:flex-row justify-center space-x-0 md:space-x-10 mt-5">
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
             <figure className="px-10 pt-10">
               <Image
