@@ -90,7 +90,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center space-x-0 md:space-x-10 mt-5">
+        <div className="flex flex-col md:flex-row justify-center space-x-0 md:space-x-10 space-y-4 md:space-y-0 mt-5">
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
             <figure className="px-10 pt-10">
               <Image
@@ -102,7 +102,7 @@ export default function Home() {
             <div className="card-body items-center text-center">
               <h2 className="card-title">Research</h2>
               <div className="card-actions">
-                <button className="btn btn-primary">Learn More</button>
+                <Button className="btn btn-primary">Learn More</Button>
               </div>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function Home() {
             <div className="card-body items-center text-center">
               <h2 className="card-title">Projects</h2>
               <div className="card-actions">
-                <button className="btn btn-primary">View</button>
+                <Button className="btn btn-primary">View</Button>
               </div>
             </div>
           </div>
