@@ -6,39 +6,18 @@ import { FaCode, FaGithub, FaLinkedin } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Badge, Button, DataList, Link } from "@radix-ui/themes";
 
+import TypingAnimation from "./TypingAnimation";
+
 import researchImage from "../public/NSDropoutEquationWEB.png";
 
 export default function Home() {
-  const [name, setName] = useState("");
-  const [typingAnimation, setTypingAnimation] = useState("");
-  const [showCursor, setShowCursor] = useState(true);
-
-  useEffect(() => {
-    const name = "Joshua Shunk";
-    setName(name);
-
-    let animation = "";
-    const typingSpeed = 150; // Time in milliseconds between each character
-
-    for (let i = 0; i < name.length; i++) {
-      setTimeout(() => {
-        animation += name.charAt(i);
-        setTypingAnimation(animation);
-      }, typingSpeed * i);
-    }
-
-    // Set a timeout to stop the cursor blinking once the name has fully appeared
-    setTimeout(() => {
-      setShowCursor(false); // This stops the cursor from blinking
-    }, name.length * typingSpeed);
-  }, []);
   return (
     <>
       <div className="flex flex-col items-center min-h-screen py-10">
-        <h1 className="text-6xl font-bold">
-          {typingAnimation}
-          {showCursor && <span className="animate-blink">|</span>}
-        </h1>
+        <TypingAnimation
+          text="Joshua Shunk"
+          className="text-6xl font-bold"
+        />
 
         <div className="flex mt-6 space-x-4 mb-6">
           <Link
