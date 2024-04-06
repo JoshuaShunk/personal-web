@@ -43,7 +43,7 @@ const EducationPage = () => {
           </svg>
         </div>
         <div className="timeline-start md:text-end mb-10">
-          <time className="font-mono italic">2001</time>
+          <time className="font-mono italic">2019-2023</time>
           <div className="text-lg font-black">Perry High School</div>
           Filler Text
         </div>

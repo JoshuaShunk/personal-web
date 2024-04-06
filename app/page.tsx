@@ -15,7 +15,6 @@ export default function Home() {
     <>
       <div className="flex flex-col items-center min-h-screen py-10">
         <TypingAnimation text="Joshua Shunk" className="text-6xl font-bold" />
-
         <div className="flex mt-6 space-x-4 mb-6">
           <Link
             href="https://github.com/JoshuaShunk?tab=repositories"
@@ -37,7 +36,6 @@ export default function Home() {
           <Badge className="mx-2">Machine Learning</Badge>
           <Badge className="mx-2">Web Development</Badge>
         </div>
-
         <div className="flex flex-col items-center">
           <div className="text-center max-w-md mt-4">
             I&#39;m a computer science major with a passion for machine
@@ -65,20 +63,26 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         <div className="flex flex-col md:flex-row justify-center space-x-0 md:space-x-10 space-y-4 md:space-y-0 mt-5">
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
             <figure className="px-10 pt-10">
               <Image
                 src={researchImage.src}
                 alt="Research"
-                className="rounded-xl"
+                width={500} // Original or desired width for aspect ratio
+                height={300} // Original or desired height for aspect ratio
+                className="w-full h-auto rounded-xl" // TailwindCSS classes for responsive scaling
               />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">Research</h2>
               <div className="card-actions">
-                <Button className="btn btn-primary">Learn More</Button>
+                {/* Update for Learn More button */}
+                <Link href="/research" className="w-full">
+                  <Button className="btn btn-primary flex-1 mx-2">
+                    Learn More
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -86,19 +90,23 @@ export default function Home() {
             <figure className="px-10 pt-10">
               <Image
                 src={researchImage.src}
-                alt="Projects"
-                className="rounded-xl"
+                alt="Research"
+                width={500} // Original or desired width for aspect ratio
+                height={300} // Original or desired height for aspect ratio
+                className="w-full h-auto rounded-xl" // TailwindCSS classes for responsive scaling
               />
             </figure>
             <div className="card-body items-center text-center">
               <h2 className="card-title">Projects</h2>
               <div className="card-actions">
-                <Button className="btn btn-primary">View</Button>
+                {/* Update for View button */}
+                <Link href="/projects" className="w-full">
+                  <Button className="btn btn-primary flex-1 mx-2">View</Button>
+                </Link>
               </div>
             </div>
           </div>
         </div>
-
         <a
           href="/JoshResume.pdf"
           download

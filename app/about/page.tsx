@@ -43,7 +43,7 @@ const aboutPage = () => {
                   School, initiating several transformative and inclusive
                   projects. With a comprehensive foundation in Python and Java
                   programming and a specialization in neural network
-                  optimization, I is poised to leverage artificial intelligence
+                  optimization, I am poised to leverage artificial intelligence
                   to address global challenges and welcomes opportunities for
                   strategic collaboration.
                 </p>
@@ -79,7 +79,10 @@ const aboutPage = () => {
                               <div className="mask mask-squircle w-14 h-14">
                                 <Image
                                   src="/StanfordLogo.png"
-                                  alt="Avatar Tailwind CSS Component"
+                                  alt="Stanford Logo"
+                                  width={56} 
+                                  height={56} 
+                                  layout="responsive" 
                                 />
                               </div>
                             </div>
@@ -115,7 +118,10 @@ const aboutPage = () => {
                               <div className="mask mask-squircle w-12 h-12">
                                 <Image
                                   src="/PerryLogo.png"
-                                  alt="Avatar Tailwind CSS Component"
+                                  alt="Perry High School Logo"
+                                  width={56} 
+                                  height={56} 
+                                  layout="responsive" 
                                 />
                               </div>
                             </div>
