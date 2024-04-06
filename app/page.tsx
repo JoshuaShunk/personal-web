@@ -6,7 +6,7 @@ import { FaCode, FaGithub, FaLinkedin } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Badge, Button, DataList, Link } from "@radix-ui/themes";
 
-import TypingAnimation from "./TypingAnimation";
+import TypingAnimation from "./TypingAnimation.client";
 
 import researchImage from "../public/NSDropoutEquationWEB.png";
 
@@ -14,10 +14,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col items-center min-h-screen py-10">
-        <TypingAnimation
-          text="Joshua Shunk"
-          className="text-6xl font-bold"
-        />
+        <TypingAnimation text="Joshua Shunk" className="text-6xl font-bold" />
 
         <div className="flex mt-6 space-x-4 mb-6">
           <Link

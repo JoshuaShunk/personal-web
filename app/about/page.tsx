@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import TypingAnimation from "../TypingAnimation";
+import TypingAnimation from "../TypingAnimation.client";
 
 const aboutPage = () => {
   return (
