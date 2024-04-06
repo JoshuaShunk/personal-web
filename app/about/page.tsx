@@ -1,10 +1,14 @@
 import React from "react";
 import Image from "next/image";
+import TypingAnimation from "../TypingAnimation";
 
 const aboutPage = () => {
   return (
     <>
-      <h1 className="text-4xl font-bold ml-10 pb-5">About Me</h1>
+      <TypingAnimation
+        text="About Me"
+        className="text-4xl font-bold ml-10 pb-5"
+      />
       <div className="flex flex-col md:flex-row justify-end px-4">
         <div className="md:w-1/2 flex justify-center md:justify-center items-center">
           <Image
