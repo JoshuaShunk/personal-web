@@ -65,21 +65,22 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-center space-x-0 md:space-x-10 space-y-4 md:space-y-0 mt-5">
+        <div className="flex flex-col md:flex-row justify-center items-center space-x-0 md:space-x-10 space-y-4 md:space-y-0 mt-5">
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
             <figure className="px-10 pt-10">
               <Image
                 src={researchImage.src}
                 alt="Research"
-                width={500} // Original or desired width for aspect ratio
-                height={300} // Original or desired height for aspect ratio
-                className="w-full h-auto rounded-xl" // TailwindCSS classes for responsive scaling
+                width={500}
+                height={300}
+                className="w-full h-auto rounded-xl"
               />
             </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">Research</h2>
-              <div className="card-actions">
-                {/* Update for Learn More button */}
+            {/* Ensure card-body itself is a flex container directing column-wise */}
+            <div className="card-body flex flex-col items-center text-center relative pb-16">
+              <h2 className="card-title">Research</h2>{" "}
+              {/* This is already centered due to text-center on card-body */}
+              <div className="card-actions absolute bottom-4 w-full flex justify-center">
                 <Link href="/research" className="w-full">
                   <Button className="btn btn-primary flex-1 mx-2">
                     Learn More
@@ -89,21 +90,24 @@ export default function Home() {
             </div>
           </div>
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
-            <figure className="px-10 pt-10">
+            <figure className="px-10 pt-12">
               <Image
                 src={furhat.src}
                 alt="Research"
-                width={500} // Original or desired width for aspect ratio
-                height={300} // Original or desired height for aspect ratio
-                className="w-full h-auto rounded-xl" // TailwindCSS classes for responsive scaling
+                width={500}
+                height={300}
+                className="w-full h-auto rounded-xl"
               />
             </figure>
-            <div className="card-body items-center text-center">
-              <h2 className="card-title">Projects</h2>
-              <div className="card-actions">
-                {/* Update for View button */}
+            {/* Ensure card-body itself is a flex container directing column-wise */}
+            <div className="card-body flex flex-col items-center text-center relative pb-16">
+              <h2 className="card-title">Projects</h2>{" "}
+              {/* This is already centered due to text-center on card-body */}
+              <div className="card-actions absolute bottom-4 w-full flex justify-center">
                 <Link href="/projects" className="w-full">
-                  <Button className="btn btn-primary flex-1 mx-2">View</Button>
+                  <Button className="btn btn-primary flex-1 mx-2">
+                    Learn More
+                  </Button>
                 </Link>
               </div>
             </div>
