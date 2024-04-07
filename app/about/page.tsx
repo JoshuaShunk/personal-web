@@ -44,7 +44,7 @@ const aboutPage = () => {
                   projects. With a comprehensive foundation in Python and Java
                   programming and a specialization in neural network
                   optimization, I am poised to leverage artificial intelligence
-                  to address global challenges and welcomes opportunities for
+                  to address global challenges and welcome opportunities for
                   strategic collaboration.
                 </p>
               </div>

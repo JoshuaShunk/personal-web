@@ -18,7 +18,7 @@ const projectPage = () => {
         style={{ minHeight: "200px" }}
       >
         <div
-          className="card w-96 ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200"
+          className="card w-96 mx-4 md:mx-0 md:ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200"
           style={{ height: "300px" }}
         >
           <figure className="relative w-full h-full">
@@ -49,7 +49,7 @@ const projectPage = () => {
           </div>
         </div>
         <div
-          className="card w-96 ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200"
+          className="card w-96 mx-4 md:mx-0 md:ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200"
           style={{ height: "300px" }}
         >
           <figure className="relative w-full h-full">
@@ -81,7 +81,7 @@ const projectPage = () => {
           </div>
         </div>
         <div
-          className="card w-96 ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200"
+          className="card w-96 mx-4 md:mx-0 md:ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200"
           style={{ height: "300px" }}
         >
           <figure className="relative w-full h-full">

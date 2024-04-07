@@ -28,7 +28,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
       )
       .then(
         (result) => {
-          setSuccessMessage("Message sent!");
+          setSuccessMessage("Message sent! I will get back to you soon.");
           setIsSubmitting(false);
           setTimeout(() => setSuccessMessage(null), 5000);
         },

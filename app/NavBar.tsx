@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaCode, FaGithub, FaBars } from "react-icons/fa";
 import { usePathname } from "next/navigation";
@@ -8,7 +8,10 @@ import classnames from "classnames";
 
 const NavBar = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const currentPath = usePathname();
+
   const links = [
     { label: "About", href: "/about" },
     { label: "Education", href: "/education" },
@@ -25,12 +28,33 @@ const NavBar = () => {
     window.addEventListener("resize", checkSize);
     checkSize();
 
-    return () => window.removeEventListener("resize", checkSize);
+    return () => {
+      window.removeEventListener("resize", checkSize);
+    };
   }, []);
 
-  const renderLinks = (
-    baseStyle: string = "" // Default value makes the parameter optional
-  ) =>
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const renderLinks = (baseStyle: string = "") =>
     links.map((link) => {
       const isActiveLink = currentPath === link.href;
       const linkClasses = classnames(baseStyle, {
@@ -48,7 +72,6 @@ const NavBar = () => {
     });
 
   const desktopLinks = renderLinks();
-
   const mobileLinks = renderLinks("dropdown-item");
 
   return (
@@ -57,26 +80,32 @@ const NavBar = () => {
         <FaCode size={25} />
       </Link>
       {isMobile ? (
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <FaBars size={20} />
-          </label>
-          <ul
+        <div className="dropdown dropdown-end" ref={dropdownRef}>
+          <button
+            onClick={toggleDropdown}
             tabIndex={0}
-            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+            className="btn btn-ghost lg:hidden"
           >
-            {mobileLinks}
-            <li>
-              <a
-                href="https://github.com/JoshuaShunk?tab=repositories"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="dropdown-item flex items-center space-x-2"
-              >
-                <FaGithub size={20} />
-              </a>
-            </li>
-          </ul>
+            <FaBars size={20} />
+          </button>
+          {isDropdownOpen && (
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              {mobileLinks}
+              <li>
+                <a
+                  href="https://github.com/JoshuaShunk?tab=repositories"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="dropdown-item flex items-center space-x-2"
+                >
+                  <FaGithub size={20} />
+                </a>
+              </li>
+            </ul>
+          )}
         </div>
       ) : (
         <ul className="flex space-x-6 right-0">
