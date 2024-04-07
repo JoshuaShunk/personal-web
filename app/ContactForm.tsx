@@ -18,9 +18,6 @@ const ContactForm: React.FC<ContactFormProps> = () => {
     setIsSubmitting(true);
     const target = e.target as HTMLFormElement;
 
-    const service_id = process.env.NEXT_PUBLIC_SERVICE_ID;
-    console.log(service_id);
-
     emailjs
       .sendForm(
         process.env.NEXT_PUBLIC_SERVICE_ID!,
