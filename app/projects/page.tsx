@@ -38,7 +38,13 @@ const projectPage = () => {
             </p>
             <div className="card-actions flex justify-between items-center">
               <div className="badge badge-outline">@Arizona Science Center</div>
-              <button className="btn btn-primary">Learn More</button>
+              <a
+                href="https://github.com/JoshuaShunk/ASCAdmissionBot"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button className="btn btn-primary">Learn More</button>
+              </a>
             </div>
           </div>
         </div>
