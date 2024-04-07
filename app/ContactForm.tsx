@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
@@ -11,7 +11,8 @@ interface ContactFormProps {
 
 const ContactForm: React.FC<ContactFormProps> = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [stateMessage, setStateMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,15 +28,15 @@ const ContactForm: React.FC<ContactFormProps> = () => {
       )
       .then(
         (result) => {
-          setStateMessage("Message sent!");
+          setSuccessMessage("Message sent!");
           setIsSubmitting(false);
-          setTimeout(() => setStateMessage(null), 5000);
+          setTimeout(() => setSuccessMessage(null), 5000);
         },
         (error) => {
-          console.log(error)
-          setStateMessage("Something went wrong, please try again later.");
+          console.log(error);
+          setErrorMessage("Something went wrong, please try again later.");
           setIsSubmitting(false);
-          setTimeout(() => setStateMessage(null), 5000);
+          setTimeout(() => setErrorMessage(null), 5000);
         }
       );
 
@@ -43,17 +44,89 @@ const ContactForm: React.FC<ContactFormProps> = () => {
   };
 
   return (
-    <form onSubmit={sendEmail}>
-      <label>Name</label>
-      <input type="text" name="user_name" />
-      <label>Email</label>
-      <input type="email" name="user_email" />
-      <label>Message</label>
-      <textarea name="message" />
-      <input type="submit" value="Send" disabled={isSubmitting} />
-      {stateMessage && <p>{stateMessage}</p>}
-    </form>
+    <div>
+      {successMessage && (
+        <div
+          role="alert"
+          className="alert alert-success fixed top-0 left-0 right-0 z-50 mx-auto w-full max-w-md p-4 m-4 mt-16"
+        >
+          {/* Success Icon and Message */}
+          <span>{successMessage}</span>
+        </div>
+      )}
+      {errorMessage && (
+        <div
+          role="alert"
+          className="alert alert-error fixed top-0 left-0 right-0 z-50 mx-auto w-full max-w-md p-4 m-4 mt-16"
+        >
+          {/* Error Icon and Message */}
+          <span>{errorMessage}</span>
+        </div>
+      )}
+      <div className="ml-4 md:ml-8 lg:ml-12">
+        <form onSubmit={sendEmail} className="space-y-4 max-w-md">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-bold">Name</span>
+            </label>
+            <input
+              type="text"
+              className="input input-bordered w-full"
+              placeholder="Joshua"
+              name="user_name"
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-bold">Email</span>
+            </label>
+            <input
+              type="email"
+              className="input input-bordered w-full"
+              placeholder="name@site.com"
+              name="user_email"
+            />
+          </div>
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text font-bold">Message</span>
+            </label>
+            <input
+              type="text"
+              className="input input-bordered w-full"
+              placeholder="Message"
+              name="message"
+            />
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isSubmitting}
+          >
+            Send
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
 export default ContactForm;
+
+/*
+
+<button type="submit" class="btn" disabled={isSubmitting}>
+  Send
+</button>
+
+
+
+<label className="input input-bordered flex items-center gap-2">
+  <input type="text" className="grow" placeholder="Message" name="message" />
+
+</label>
+<label className="input input-bordered flex items-center gap-2">
+  <input type="text" className="grow" placeholder="Search" />
+  <span className="badge badge-info">Optional</span>
+</label>
+*/
