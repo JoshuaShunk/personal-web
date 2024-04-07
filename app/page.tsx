@@ -10,7 +10,10 @@ import TypingAnimation from "./TypingAnimation.client";
 
 import researchImage from "/public/nsDropout.svg";
 import furhat from "/public/furhat.png";
+import googleEarth from "/public/googleEarth.jpg";
+import homePage from "/public/homepage.png";
 
+import CardWithCarousel from "./CardWithCarousel";
 
 export default function Home() {
   return (
@@ -66,48 +69,42 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center space-x-0 md:space-x-10 space-y-4 md:space-y-0 mt-5">
-          <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
-            <figure className="px-10 pt-10">
+          <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200 h-[400px] flex flex-col justify-between">
+            <figure className="px-10 pt-12 h-2/3">
               <Image
                 src={researchImage.src}
                 alt="Research"
                 width={500}
                 height={300}
-                className="w-full h-auto rounded-xl"
+                className="w-full h-auto rounded-xl overflow-hidden"
               />
             </figure>
             {/* Ensure card-body itself is a flex container directing column-wise */}
-            <div className="card-body flex flex-col items-center text-center relative pb-16">
-              <h2 className="card-title">Research</h2>{" "}
-              {/* This is already centered due to text-center on card-body */}
-              <div className="card-actions absolute bottom-4 w-full flex justify-center">
-                <Link href="/research" className="w-full">
-                  <Button className="btn btn-primary flex-1 mx-2">
-                    Learn More
-                  </Button>
+            <div className="flex flex-col items-center text-center flex-grow">
+              <h2 className="card-title mt-4">Research </h2>
+              <div className="flex justify-center w-full px-4 pb-4 mt-4">
+                <Link href="/research">
+                  <button className="btn btn-primary">Learn More</button>
                 </Link>
               </div>
             </div>
           </div>
-          <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
-            <figure className="px-10 pt-12">
-              <Image
-                src={furhat.src}
-                alt="Research"
-                width={500}
-                height={300}
-                className="w-full h-auto rounded-xl"
-              />
-            </figure>
-            {/* Ensure card-body itself is a flex container directing column-wise */}
-            <div className="card-body flex flex-col items-center text-center relative pb-16">
-              <h2 className="card-title">Projects</h2>{" "}
-              {/* This is already centered due to text-center on card-body */}
-              <div className="card-actions absolute bottom-4 w-full flex justify-center">
-                <Link href="/projects" className="w-full">
-                  <Button className="btn btn-primary flex-1 mx-2">
-                    Learn More
-                  </Button>
+          <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200 h-[400px] flex flex-col justify-between">
+            <CardWithCarousel
+              images={[
+                { src: furhat.src, alt: "Image 1", id: "slide1" },
+                { src: googleEarth.src, alt: "Image 2", id: "slide2" },
+                { src: homePage.src, alt: "Image 3", id: "slide3" },
+                // Additional images as needed
+              ]}
+              className="px-10 pt-10 h-2/3"
+            />
+
+            <div className="flex flex-col items-center text-center flex-grow">
+              <h2 className="card-title mt-4">Projects</h2>
+              <div className="flex justify-center w-full px-4 pb-4 mt-4">
+                <Link href="/projects">
+                  <button className="btn btn-primary">Learn More</button>
                 </Link>
               </div>
             </div>

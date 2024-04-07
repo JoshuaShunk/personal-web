@@ -11,9 +11,9 @@ const researchPage = () => {
         text="Research"
         className="text-4xl font-bold ml-10 pb-5"
       />
-      <div className="card w-96 bg-base-100 shadow-xl image-full mx-9 hover:scale-105 transition-transform duration-200">
+      <div className="card w-96 mx-4 md:mx-0 md:ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200">
         <figure>
-          <Image src={nsDropout.src} alt="Shoes" width={500} height={300} />
+          <Image src={nsDropout.src} alt="Neuron-specific Dropout" width={500} height={300} />
         </figure>
         <div className="card-body">
           <h2 className="card-title">Neruon-specific Dropout</h2>
