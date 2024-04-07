@@ -121,7 +121,7 @@ const NavBar = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaGithub size={20} />
+            <FaGithub size={20} className="my-3" />
           </Link>
         </ul>
       )}
