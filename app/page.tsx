@@ -8,7 +8,9 @@ import { Badge, Button, DataList, Link } from "@radix-ui/themes";
 
 import TypingAnimation from "./TypingAnimation.client";
 
-import researchImage from "../public/NSDropoutEquationWEB.png";
+import researchImage from "/public/nsDropout.svg";
+import furhat from "/public/furhat.png";
+
 
 export default function Home() {
   return (
@@ -89,7 +91,7 @@ export default function Home() {
           <div className="card w-96 bg-base-100 shadow-xl hover:scale-105 transition-transform duration-200">
             <figure className="px-10 pt-10">
               <Image
-                src={researchImage.src}
+                src={furhat.src}
                 alt="Research"
                 width={500} // Original or desired width for aspect ratio
                 height={300} // Original or desired height for aspect ratio

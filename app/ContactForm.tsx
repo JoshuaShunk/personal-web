@@ -72,7 +72,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
             <input
               type="text"
               className="input input-bordered w-full"
-              placeholder="Joshua"
+              placeholder="ex. Joshua"
               name="user_name"
             />
           </div>
@@ -83,7 +83,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
             <input
               type="email"
               className="input input-bordered w-full"
-              placeholder="name@site.com"
+              placeholder="ex. name@site.com"
               name="user_email"
             />
           </div>
@@ -112,21 +112,3 @@ const ContactForm: React.FC<ContactFormProps> = () => {
 };
 
 export default ContactForm;
-
-/*
-
-<button type="submit" class="btn" disabled={isSubmitting}>
-  Send
-</button>
-
-
-
-<label className="input input-bordered flex items-center gap-2">
-  <input type="text" className="grow" placeholder="Message" name="message" />
-
-</label>
-<label className="input input-bordered flex items-center gap-2">
-  <input type="text" className="grow" placeholder="Search" />
-  <span className="badge badge-info">Optional</span>
-</label>
-*/
