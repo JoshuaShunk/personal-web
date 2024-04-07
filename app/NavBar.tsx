@@ -54,25 +54,31 @@ const NavBar = () => {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const renderLinks = (baseStyle: string = "") =>
+  const renderLinks = (baseStyle: string = "", onClick?: () => void) =>
     links.map((link) => {
       const isActiveLink = currentPath === link.href;
-      const linkClasses = classnames(baseStyle, {
+      // Adding text-lg and py-2 px-4 for larger text and padding
+      const linkClasses = classnames(baseStyle, "text-lg py-2 px-4", {
         "text-zinc-900": isActiveLink,
         "text-zinc-500": !isActiveLink,
-        "hover:text-zinc-800": true, // Always apply hover effect
-        "transition-colors": true, // Always apply transition
+        "hover:text-zinc-800": true,
+        "transition-colors": true,
       });
 
       return (
-        <Link key={link.href} href={link.href} className={linkClasses}>
-          {link.label}
+        <Link key={link.href} href={link.href}>
+          <div onClick={onClick} className={linkClasses + " cursor-pointer"}>
+            {link.label}
+          </div>
         </Link>
       );
     });
 
+
   const desktopLinks = renderLinks();
-  const mobileLinks = renderLinks("dropdown-item");
+  const mobileLinks = renderLinks("dropdown-item", () =>
+    setIsDropdownOpen(false)
+  );
 
   return (
     <nav className="flex justify-between items-center w-full mb-5 px-5 h-14">
@@ -80,7 +86,7 @@ const NavBar = () => {
         <FaCode size={25} />
       </Link>
       {isMobile ? (
-        <div className="dropdown dropdown-end" ref={dropdownRef}>
+        <div className="dropdown dropdown-end z-50" ref={dropdownRef}>
           <button
             onClick={toggleDropdown}
             tabIndex={0}
@@ -93,8 +99,8 @@ const NavBar = () => {
               tabIndex={0}
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {mobileLinks}
-              <li>
+              {renderLinks("dropdown-item", () => setIsDropdownOpen(false))}
+              <li onClick={() => setIsDropdownOpen(false)}>
                 <a
                   href="https://github.com/JoshuaShunk?tab=repositories"
                   target="_blank"
