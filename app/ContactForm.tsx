@@ -18,6 +18,7 @@ const ContactForm = () => {
   const [showCheckmark, setShowCheckmark] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [warningMessage, setWarningMessage] = useState<string | null>(null);
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
@@ -30,8 +31,24 @@ const ContactForm = () => {
 
   const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setFormSubmitted(true); // Trigger the useEffect hook
+    setIsSubmitting(true); // Indicate the process has started
+
+    // Access form fields directly to check their values
+    const form = e.currentTarget;
+    const name = form.user_name.value.trim();
+    const email = form.user_email.value.trim();
+    const message = form.message.value.trim();
+
+    // Validation: Check if any field is empty
+    if (!name || !email || !message) {
+      setWarningMessage("Please fill out all forms.");
+      setIsSubmitting(false); // Reset submitting state because we're not proceeding
+      return; // Exit the function early
+    }
+
+    // Fields are valid, so proceed and show the loader
+    setShowLoader(true); // Moved inside validation check
+    setFormSubmitted(true); // Proceed if validation passes
 
     const target = e.target as HTMLFormElement;
     emailjs
@@ -90,6 +107,14 @@ const ContactForm = () => {
           <span>{errorMessage}</span>
         </div>
       )}
+      {warningMessage && (
+        <div
+          role="alert"
+          className="alert alert-warning fixed top-0 left-0 right-0 z-50 mx-auto w-full max-w-md p-4 m-4 mt-16"
+        >
+          <span>{warningMessage}</span>
+        </div>
+      )}
       <div className="mx-4 md:mx-8 lg:ml-12">
         <form onSubmit={sendEmail} className="space-y-4 max-w-md">
           <div className="form-control">
@@ -101,6 +126,7 @@ const ContactForm = () => {
               className="input input-bordered w-full"
               placeholder="e.g. Joshua"
               name="user_name"
+              onChange={() => setWarningMessage(null)}
             />
           </div>
           <div className="form-control">
@@ -112,6 +138,7 @@ const ContactForm = () => {
               className="input input-bordered w-full"
               placeholder="e.g. name@site.com"
               name="user_email"
+              onChange={() => setWarningMessage(null)}
             />
           </div>
           <div className="form-control">
@@ -123,6 +150,7 @@ const ContactForm = () => {
               className="input input-bordered w-full"
               placeholder="Message"
               name="message"
+              onChange={() => setWarningMessage(null)}
             />
           </div>
           <button type="submit" className="button" disabled={isSubmitting}>
