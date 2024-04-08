@@ -1,7 +1,10 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
+
 import emailjs from "@emailjs/browser";
+
+import "./ContactForm.css";
 
 require("dotenv").config();
 
@@ -9,16 +12,28 @@ interface ContactFormProps {
   // Define props here if any
 }
 
-const ContactForm: React.FC<ContactFormProps> = () => {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+const ContactForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+  const [showCheckmark, setShowCheckmark] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (formSubmitted) {
+      setShowLoader(true);
+      setShowCheckmark(false); // Ensure checkmark is not shown immediately
+    }
+  }, [formSubmitted]);
 
   const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const target = e.target as HTMLFormElement;
+    setFormSubmitted(true); // Trigger the useEffect hook
 
+    const target = e.target as HTMLFormElement;
     emailjs
       .sendForm(
         process.env.NEXT_PUBLIC_SERVICE_ID!,
@@ -29,18 +44,31 @@ const ContactForm: React.FC<ContactFormProps> = () => {
       .then(
         (result) => {
           setSuccessMessage("Message sent! I will get back to you soon.");
-          setIsSubmitting(false);
+          setShowLoader(false); // Stop the loader
+          // Wait a bit before showing the checkmark to ensure the transition is noticeable
+          setTimeout(() => {
+            setShowCheckmark(true); // Now show the checkmark
+          }, 200); // Adjust this timing as needed
+
+          setTimeout(() => {
+            setShowCheckmark(false);
+          }, 5000); // Adjust timing based on your UX needs
+
           setTimeout(() => setSuccessMessage(null), 5000);
         },
         (error) => {
           console.log(error);
           setErrorMessage("Something went wrong, please try again later.");
-          setIsSubmitting(false);
+          setShowLoader(false); // Ensure loader is hidden on error
+
           setTimeout(() => setErrorMessage(null), 5000);
         }
-      );
-
-    target.reset();
+      )
+      .finally(() => {
+        setIsSubmitting(false);
+        setFormSubmitted(false); // Reset form submission state
+        target.reset(); // Reset form fields
+      });
   };
 
   return (
@@ -59,7 +87,6 @@ const ContactForm: React.FC<ContactFormProps> = () => {
           role="alert"
           className="alert alert-error fixed top-0 left-0 right-0 z-50 mx-auto w-full max-w-md p-4 m-4 mt-16"
         >
-          {/* Error Icon and Message */}
           <span>{errorMessage}</span>
         </div>
       )}
@@ -98,13 +125,14 @@ const ContactForm: React.FC<ContactFormProps> = () => {
               name="message"
             />
           </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            disabled={isSubmitting}
-          >
+          <button type="submit" className="button" disabled={isSubmitting}>
             Send
           </button>
+          {showLoader && (
+            <div className="flex justify-center mt-4">
+              <span className="loading loading-ring loading-lg"></span>
+            </div>
+          )}
         </form>
       </div>
     </div>
