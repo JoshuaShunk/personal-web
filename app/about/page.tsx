@@ -104,11 +104,6 @@ const aboutPage = () => {
                           </span>
                         </td>
                         <td>3.8</td>
-                        <th>
-                          <button className="btn btn-ghost btn-xs">
-                            details
-                          </button>
-                        </th>
                       </tr>
                       {/* row 2 */}
                       <tr>
@@ -138,11 +133,6 @@ const aboutPage = () => {
                           <br />
                         </td>
                         <td>4.87</td>
-                        <th>
-                          <button className="btn btn-ghost btn-xs">
-                            details
-                          </button>
-                        </th>
                       </tr>
                     </tbody>
                   </table>
