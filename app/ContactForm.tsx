@@ -13,7 +13,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  
+
   const sendEmail = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -63,7 +63,7 @@ const ContactForm: React.FC<ContactFormProps> = () => {
           <span>{errorMessage}</span>
         </div>
       )}
-      <div className="ml-4 md:ml-8 md:mr-8 lg:ml-12">
+      <div className="mx-4 md:mx-8 lg:ml-12">
         <form onSubmit={sendEmail} className="space-y-4 max-w-md">
           <div className="form-control">
             <label className="label">
