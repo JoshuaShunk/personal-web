@@ -8,8 +8,9 @@ const contactPage = () => {
     <div>
       <TypingAnimation
         text="Contact Me"
-        className="text-4xl font-bold ml-10 pb-5"
+        className="text-4xl font-bold ml-10 pb-2"
       />
+      <p className="text-base font-semibold ml-11 pb-5">I would love to get in touch!</p>
 
       <ContactForm />
     </div>

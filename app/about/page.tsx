@@ -31,7 +31,7 @@ const aboutPage = () => {
                   Hi my name is Joshua Shunk! I am an undergraduate student of
                   Computer Science at Stanford University. I completed my high
                   school education as the valedictorian of Perry High School,
-                  achieving a GPA of 4.91. At the Regeneron Science Talent
+                  achieving a GPA of 4.87. At the Regeneron Science Talent
                   Search, I was recognized for the development of
                   &quot;neuron-specific dropout&quot;. Beyond my academic and
                   research achievements, I have demonstrated exemplary
@@ -137,7 +137,7 @@ const aboutPage = () => {
                           N/A
                           <br />
                         </td>
-                        <td>4.92</td>
+                        <td>4.87</td>
                         <th>
                           <button className="btn btn-ghost btn-xs">
                             details
