@@ -22,6 +22,20 @@ const ContactForm = () => {
 
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  // Dynamically load the reCAPTCHA v3 script when the component mounts
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Clean up the script when the component unmounts
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  // Effect for handling form submission state
   useEffect(() => {
     if (formSubmitted) {
       setShowLoader(true);
@@ -45,47 +59,64 @@ const ContactForm = () => {
       setIsSubmitting(false); // Reset submitting state because we're not proceeding
       return; // Exit the function early
     }
+    if (typeof window !== "undefined" && window.grecaptcha) {
+      window.grecaptcha.ready(() => {
+        window.grecaptcha
+          window.grecaptcha
+            .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string, {
+              action: "submit",
+            })
+            .then((token: string) => {
+              // Attach the reCAPTCHA token to your form or payload here before sending it.
+              // For simplicity, appending token directly to the form data using emailjs might not directly support it,
+              // so consider adapting this part based on your back-end handling or API requirements.
+              // Fields are valid, so proceed and show the loader
+              setShowLoader(true); // Moved inside validation check
+              setFormSubmitted(true); // Proceed if validation passes
 
-    // Fields are valid, so proceed and show the loader
-    setShowLoader(true); // Moved inside validation check
-    setFormSubmitted(true); // Proceed if validation passes
+              const target = e.target as HTMLFormElement;
+              emailjs
+                .sendForm(
+                  process.env.NEXT_PUBLIC_SERVICE_ID!,
+                  process.env.NEXT_PUBLIC_TEMPLATE_ID!,
+                  target,
+                  process.env.NEXT_PUBLIC_PUBLIC_KEY!
+                )
+                .then(
+                  (result) => {
+                    setSuccessMessage(
+                      "Message sent! I will get back to you soon."
+                    );
+                    setShowLoader(false); // Stop the loader
+                    // Wait a bit before showing the checkmark to ensure the transition is noticeable
+                    setTimeout(() => {
+                      setShowCheckmark(true); // Now show the checkmark
+                    }, 200); // Adjust this timing as needed
 
-    const target = e.target as HTMLFormElement;
-    emailjs
-      .sendForm(
-        process.env.NEXT_PUBLIC_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_TEMPLATE_ID!,
-        target,
-        process.env.NEXT_PUBLIC_PUBLIC_KEY!
-      )
-      .then(
-        (result) => {
-          setSuccessMessage("Message sent! I will get back to you soon.");
-          setShowLoader(false); // Stop the loader
-          // Wait a bit before showing the checkmark to ensure the transition is noticeable
-          setTimeout(() => {
-            setShowCheckmark(true); // Now show the checkmark
-          }, 200); // Adjust this timing as needed
+                    setTimeout(() => {
+                      setShowCheckmark(false);
+                    }, 5000); // Adjust timing based on your UX needs
 
-          setTimeout(() => {
-            setShowCheckmark(false);
-          }, 5000); // Adjust timing based on your UX needs
+                    setTimeout(() => setSuccessMessage(null), 5000);
+                  },
+                  (error) => {
+                    console.log(error);
+                    setErrorMessage(
+                      "Something went wrong, please try again later."
+                    );
+                    setShowLoader(false); // Ensure loader is hidden on error
 
-          setTimeout(() => setSuccessMessage(null), 5000);
-        },
-        (error) => {
-          console.log(error);
-          setErrorMessage("Something went wrong, please try again later.");
-          setShowLoader(false); // Ensure loader is hidden on error
-
-          setTimeout(() => setErrorMessage(null), 5000);
-        }
-      )
-      .finally(() => {
-        setIsSubmitting(false);
-        setFormSubmitted(false); // Reset form submission state
-        target.reset(); // Reset form fields
+                    setTimeout(() => setErrorMessage(null), 5000);
+                  }
+                )
+                .finally(() => {
+                  setIsSubmitting(false);
+                  setFormSubmitted(false); // Reset form submission state
+                  target.reset(); // Reset form fields
+                });
+            });
       });
+    }
   };
 
   return (
