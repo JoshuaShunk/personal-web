@@ -21,9 +21,7 @@ const verifyTurnstile = async (token: string, secretKey: string, remoteIp?: stri
   return data;
 };
 
-export const config = {
-    runtime: 'experimental-edge',
-};
+export const runtime = 'experimental-edge';
 
 export async function POST(req: NextRequest) {
     const data = await req.json();
