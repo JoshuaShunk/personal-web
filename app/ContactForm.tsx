@@ -5,6 +5,12 @@ import emailjs from "@emailjs/browser";
 
 import "./ContactForm.css";
 
+interface TurnstileOptions {
+  sitekey: string;
+  callback: (token: string) => void;
+  theme?: string;
+}
+
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
@@ -38,12 +44,13 @@ const ContactForm = () => {
       }
 
       if (window.turnstile) {
-        window.turnstile.render("#turnstile-widget", {
+        const options: TurnstileOptions = {
           sitekey: siteKey,
+          theme: "light", // This will set the theme to light
           callback: (token) => {
             setTurnstileToken(token);
           },
-        });
+        };(window.turnstile.render as any)("#turnstile-widget", options);
       }
     };
 
@@ -184,7 +191,7 @@ const ContactForm = () => {
           <input
             type="text"
             className="input input-bordered w-full"
-            placeholder="e.g. Joshua"
+            placeholder="e.g. Joshua Shunk"
             name="user_name"
             required
             onChange={() => setWarningMessage(null)}
