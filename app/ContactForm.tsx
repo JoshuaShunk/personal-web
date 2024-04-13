@@ -1,16 +1,9 @@
 "use client";
 
-import React, { useState, FormEvent, useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 
 import "./ContactForm.css";
-
-require("dotenv").config();
-
-interface ContactFormProps {
-  // Define props here if any
-}
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,23 +12,9 @@ const ContactForm = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [warningMessage, setWarningMessage] = useState<string | null>(null);
-
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  // Dynamically load the reCAPTCHA v3 script when the component mounts
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Clean up the script when the component unmounts
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  // Effect for handling form submission state
   useEffect(() => {
     if (formSubmitted) {
       setShowLoader(true);
@@ -43,7 +22,32 @@ const ContactForm = () => {
     }
   }, [formSubmitted]);
 
-  const sendEmail = (e: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback";
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.onloadTurnstileCallback = function () {
+      if (window.turnstile) {
+        window.turnstile.render("#turnstile-widget", {
+          sitekey: process.env.NEXT_PUBLIC_SITE_KEY!, // Ensure this environment variable is set in your .env.local
+          callback: (token) => {
+            //console.log("Turnstile token received:", token);
+            setTurnstileToken(token);
+          },
+        });
+      }
+    };
+
+    return () => {
+      document.head.removeChild(script);
+      delete window.onloadTurnstileCallback; // Clean up the callback to prevent memory leaks
+    };
+  }, []);
+
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true); // Indicate the process has started
 
@@ -52,6 +56,12 @@ const ContactForm = () => {
     const name = form.user_name.value.trim();
     const email = form.user_email.value.trim();
     const message = form.message.value.trim();
+    if (!turnstileToken) {
+      setErrorMessage(
+        "CAPTCHA token not received. Please refresh the page and try again."
+      );
+      return;
+    }
 
     // Validation: Check if any field is empty
     if (!name || !email || !message) {
@@ -59,68 +69,84 @@ const ContactForm = () => {
       setIsSubmitting(false); // Reset submitting state because we're not proceeding
       return; // Exit the function early
     }
-    if (typeof window !== "undefined" && window.grecaptcha) {
-      window.grecaptcha.ready(() => {
-        window.grecaptcha
-          window.grecaptcha
-            .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string, {
-              action: "submit",
-            })
-            .then((token: string) => {
-              // Attach the reCAPTCHA token to your form or payload here before sending it.
-              // For simplicity, appending token directly to the form data using emailjs might not directly support it,
-              // so consider adapting this part based on your back-end handling or API requirements.
-              // Fields are valid, so proceed and show the loader
-              setShowLoader(true); // Moved inside validation check
-              setFormSubmitted(true); // Proceed if validation passes
 
-              const target = e.target as HTMLFormElement;
-              emailjs
-                .sendForm(
-                  process.env.NEXT_PUBLIC_SERVICE_ID!,
-                  process.env.NEXT_PUBLIC_TEMPLATE_ID!,
-                  target,
-                  process.env.NEXT_PUBLIC_PUBLIC_KEY!
-                )
-                .then(
-                  (result) => {
-                    setSuccessMessage(
-                      "Message sent! I will get back to you soon."
-                    );
-                    setShowLoader(false); // Stop the loader
-                    // Wait a bit before showing the checkmark to ensure the transition is noticeable
-                    setTimeout(() => {
-                      setShowCheckmark(true); // Now show the checkmark
-                    }, 200); // Adjust this timing as needed
+    setShowLoader(true);
+    setFormSubmitted(true); // Proceed if validation passes
 
-                    setTimeout(() => {
-                      setShowCheckmark(false);
-                    }, 5000); // Adjust timing based on your UX needs
-
-                    setTimeout(() => setSuccessMessage(null), 5000);
-                  },
-                  (error) => {
-                    console.log(error);
-                    setErrorMessage(
-                      "Something went wrong, please try again later."
-                    );
-                    setShowLoader(false); // Ensure loader is hidden on error
-
-                    setTimeout(() => setErrorMessage(null), 5000);
-                  }
-                )
-                .finally(() => {
-                  setIsSubmitting(false);
-                  setFormSubmitted(false); // Reset form submission state
-                  target.reset(); // Reset form fields
-                });
-            });
+    try {
+      const response = await fetch("/api/recaptcha", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token: turnstileToken }),
       });
+
+      if (!response.ok) {
+        // This handles HTTP errors which are not part of 2xx success status codes
+        throw new Error(`Server responded with status: ${response.status}`);
+      }
+
+      let data;
+      try {
+        data = await response.json(); // Attempt to parse JSON from the response
+      } catch (error) {
+        // This handles JSON parsing errors
+        throw new Error("Failed to parse JSON response");
+      }
+
+      //console.log("Server response:", data);
+
+      if (data.message === "Verification successful") {
+        // Proceed with email sending logic or any subsequent actions
+        const target = e.target as HTMLFormElement;
+        emailjs
+          .sendForm(
+            process.env.NEXT_PUBLIC_SERVICE_ID!,
+            process.env.NEXT_PUBLIC_TEMPLATE_ID!,
+            target,
+            process.env.NEXT_PUBLIC_PUBLIC_KEY!
+          )
+          .then(
+            (result) => {
+              setSuccessMessage("Message sent! I will get back to you soon.");
+              setShowLoader(false); // Stop the loader
+              // Wait a bit before showing the checkmark to ensure the transition is noticeable
+
+              setTimeout(() => {
+                setShowCheckmark(false);
+              }, 5000); // Adjust timing based on your UX needs
+
+              setTimeout(() => setSuccessMessage(null), 5000);
+              
+
+            },
+            (error) => {
+              //console.log(error);
+              setErrorMessage("Something went wrong, please try again later.");
+              setShowLoader(false); // Ensure loader is hidden on error
+
+              setTimeout(() => setErrorMessage(null), 5000);
+            }
+          );
+      } else {
+        // Handle business logic failures
+        setErrorMessage(data.message || "Verification failed");
+        throw new Error(data.message || "Verification failed");
+      }
+    } catch (error) {
+      //console.error("Error during email sending:", error);
+      setErrorMessage("Something went wrong, please try again later.");
+    } finally {
+      setIsSubmitting(false);
+      setShowLoader(false);
+      form.reset();
+      setTurnstileToken(null); // Reset the token for the next form submission
     }
   };
 
   return (
-    <div>
+    <div className="mx-4 md:mx-8 lg:ml-12">
       {successMessage && (
         <div
           role="alert"
@@ -146,54 +172,55 @@ const ContactForm = () => {
           <span>{warningMessage}</span>
         </div>
       )}
-      <div className="mx-4 md:mx-8 lg:ml-12">
-        <form onSubmit={sendEmail} className="space-y-4 max-w-md">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text font-bold">Name</span>
-            </label>
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              placeholder="e.g. Joshua"
-              name="user_name"
-              onChange={() => setWarningMessage(null)}
-            />
+      <form onSubmit={sendEmail} className="space-y-4 max-w-md">
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold">Name</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="e.g. Joshua"
+            name="user_name"
+            required
+            onChange={() => setWarningMessage(null)}
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold">Email</span>
+          </label>
+          <input
+            type="email"
+            className="input input-bordered w-full"
+            placeholder="e.g. name@site.com"
+            name="user_email"
+            required
+            onChange={() => setWarningMessage(null)}
+          />
+        </div>
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text font-bold">Message</span>
+          </label>
+          <input
+            type="text"
+            className="input input-bordered w-full"
+            placeholder="Message"
+            name="message"
+            onChange={() => setWarningMessage(null)}
+          />
+        </div>
+        <div id="turnstile-widget"></div>
+        <button type="submit" className="button" disabled={isSubmitting}>
+          Send
+        </button>
+        {showLoader && (
+          <div className="flex justify-center mt-4">
+            <span className="loading loading-ring loading-lg"></span>
           </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text font-bold">Email</span>
-            </label>
-            <input
-              type="email"
-              className="input input-bordered w-full"
-              placeholder="e.g. name@site.com"
-              name="user_email"
-              onChange={() => setWarningMessage(null)}
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text font-bold">Message</span>
-            </label>
-            <input
-              type="text"
-              className="input input-bordered w-full"
-              placeholder="Message"
-              name="message"
-              onChange={() => setWarningMessage(null)}
-            />
-          </div>
-          <button type="submit" className="button" disabled={isSubmitting}>
-            Send
-          </button>
-          {showLoader && (
-            <div className="flex justify-center mt-4">
-              <span className="loading loading-ring loading-lg"></span>
-            </div>
-          )}
-        </form>
-      </div>
+        )}
+      </form>
     </div>
   );
 };

@@ -1,9 +1,17 @@
 // global.d.ts
+export {};
 
-// Extend the Window interface to include grecaptcha
-interface Window {
-  grecaptcha: {
-    ready: (callback: () => void) => void;
-    execute: (siteKey: string, options: { action: string }) => Promise<string>;
-  };
+declare global {
+  interface Window {
+    onloadTurnstileCallback?: () => void;
+    turnstile?: {
+      render: (
+        selector: string,
+        options: {
+          sitekey: string,
+          callback: (token: string) => void
+        }
+      ) => void;
+    };
+  }
 }
