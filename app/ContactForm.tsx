@@ -29,12 +29,14 @@ const ContactForm = () => {
   }, [formSubmitted]);
 
   useEffect(() => {
+    // Create script element
     const script = document.createElement("script");
+    script.id = "turnstile-script";
     script.src =
       "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onloadTurnstileCallback";
     script.async = true;
-    document.head.appendChild(script);
 
+    // Define onload callback function explicitly in the window object
     window.onloadTurnstileCallback = function () {
       const siteKey = process.env.NEXT_PUBLIC_SITE_KEY;
 
@@ -50,15 +52,33 @@ const ContactForm = () => {
           callback: (token) => {
             setTurnstileToken(token);
           },
-        };(window.turnstile.render as any)("#turnstile-widget", options);
+        };
+        (window.turnstile.render as any)("#turnstile-widget", options);
       }
     };
 
+    // Append script to document head
+    document.head.appendChild(script);
+
+    // Clean up function
     return () => {
-      document.head.removeChild(script);
-      delete window.onloadTurnstileCallback; // Clean up the callback to prevent memory leaks
+      // Remove script element
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+
+      // Safely remove the event listener if it exists
+      if (typeof window.onloadTurnstileCallback === "function") {
+        script.removeEventListener(
+          "load",
+          window.onloadTurnstileCallback as EventListener
+        );
+      }
+
+      // Clean up the window property
+      delete window.onloadTurnstileCallback;
     };
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once after the initial render
 
   const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -219,6 +239,7 @@ const ContactForm = () => {
             className="input input-bordered w-full"
             placeholder="Message"
             name="message"
+            required
             onChange={() => setWarningMessage(null)}
           />
         </div>
