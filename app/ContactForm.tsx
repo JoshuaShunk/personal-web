@@ -30,11 +30,17 @@ const ContactForm = () => {
     document.head.appendChild(script);
 
     window.onloadTurnstileCallback = function () {
+      const siteKey = process.env.NEXT_PUBLIC_SITE_KEY;
+
+      if (!siteKey) {
+        console.error("NEXT_PUBLIC_SITE_KEY is not set");
+        return; // Don't attempt to render Turnstile if the site key is missing
+      }
+
       if (window.turnstile) {
         window.turnstile.render("#turnstile-widget", {
-          sitekey: process.env.NEXT_PUBLIC_SITE_KEY!, // Ensure this environment variable is set in your .env.local
+          sitekey: siteKey,
           callback: (token) => {
-            //console.log("Turnstile token received:", token);
             setTurnstileToken(token);
           },
         });
@@ -118,8 +124,6 @@ const ContactForm = () => {
               }, 5000); // Adjust timing based on your UX needs
 
               setTimeout(() => setSuccessMessage(null), 5000);
-              
-
             },
             (error) => {
               //console.log(error);
