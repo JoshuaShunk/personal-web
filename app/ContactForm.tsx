@@ -39,6 +39,7 @@ const ContactForm = () => {
     // Define onload callback function explicitly in the window object
     window.onloadTurnstileCallback = function () {
       const siteKey = process.env.NEXT_PUBLIC_SITE_KEY;
+      const currentTheme = localStorage.getItem("theme") || "light";
 
       if (!siteKey) {
         console.error("NEXT_PUBLIC_SITE_KEY is not set");
@@ -48,7 +49,7 @@ const ContactForm = () => {
       if (window.turnstile) {
         const options: TurnstileOptions = {
           sitekey: siteKey,
-          theme: "light", // This will set the theme to light
+          theme: currentTheme === "dark" ? "dark" : "light", // This will set the theme to light
           callback: (token) => {
             setTurnstileToken(token);
           },
@@ -91,8 +92,10 @@ const ContactForm = () => {
     const message = form.message.value.trim();
     if (!turnstileToken) {
       setErrorMessage(
-        "CAPTCHA token not received. Please refresh the page and try again."
+        "CAPTCHA token not received. Please complete the CAPTCHA or refresh the page and try again."
       );
+      setTimeout(() => setErrorMessage(null), 5000);
+      setIsSubmitting(false);
       return;
     }
 
@@ -144,6 +147,7 @@ const ContactForm = () => {
             (result) => {
               setSuccessMessage("Message sent! I will get back to you soon.");
               setShowLoader(false); // Stop the loader
+              form.reset();
               // Wait a bit before showing the checkmark to ensure the transition is noticeable
 
               setTimeout(() => {
@@ -171,7 +175,6 @@ const ContactForm = () => {
     } finally {
       setIsSubmitting(false);
       setShowLoader(false);
-      form.reset();
       setTurnstileToken(null); // Reset the token for the next form submission
     }
   };

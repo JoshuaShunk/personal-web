@@ -5,10 +5,15 @@ import Link from "next/link";
 import { FaCode, FaGithub, FaBars } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import classnames from "classnames";
+import ThemeToggle from "./ThemeToggle";
+// Import statement for Theme might not be necessary unless you are using it somewhere else
+// import { Theme } from "@radix-ui/themes";
 
 const NavBar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState("light"); // default to 'light'
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const currentPath = usePathname();
 
@@ -19,6 +24,24 @@ const NavBar = () => {
     { label: "Projects", href: "/projects" },
     { label: "Contact", href: "/contact" },
   ];
+  useEffect(() => {
+    // Only executed on client-side
+    const theme = localStorage.getItem("theme") || "light";
+    setCurrentTheme(theme);
+  }, []);
+
+  useEffect(() => {
+    // Function to handle theme change
+    const updateTheme = (newTheme: string) => {
+      setCurrentTheme(newTheme); // Update the state
+      localStorage.setItem("theme", newTheme); // Update localStorage
+      document.documentElement.setAttribute("data-theme", newTheme); // Update the document theme
+    };
+
+    // Assuming ThemeToggle component accepts onThemeChange prop
+    // You would pass updateTheme to ThemeToggle component like this
+    // <ThemeToggle onThemeChange={updateTheme} />
+  }, []);
 
   useEffect(() => {
     const checkSize = () => {
@@ -54,16 +77,24 @@ const NavBar = () => {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const renderLinks = (baseStyle: string = "", onClick?: () => void) =>
-    links.map((link) => {
+  const renderLinks = (baseStyle: string = "", onClick?: () => void) => {
+    return links.map((link) => {
       const isActiveLink = currentPath === link.href;
-      // Adding text-lg and py-2 px-4 for larger text and padding
-      const linkClasses = classnames(baseStyle, "text-lg py-2 px-4", {
-        "text-zinc-900": isActiveLink,
-        "text-zinc-500": !isActiveLink,
-        "hover:text-zinc-800": true,
-        "transition-colors": true,
-      });
+      const textColorClass = isActiveLink
+        ? currentTheme === "dark"
+          ? "text-white"
+          : "text-zinc-900"
+        : "text-zinc-500";
+
+      const linkClasses = classnames(
+        baseStyle,
+        "text-lg py-2 px-4",
+        textColorClass,
+        {
+          "hover:text-zinc-800": true,
+          "transition-colors": true,
+        }
+      );
 
       return (
         <Link key={link.href} href={link.href}>
@@ -73,7 +104,7 @@ const NavBar = () => {
         </Link>
       );
     });
-
+  };
 
   const desktopLinks = renderLinks();
   const mobileLinks = renderLinks("dropdown-item", () =>
@@ -81,7 +112,13 @@ const NavBar = () => {
   );
 
   return (
-    <nav className="flex justify-between items-center w-full mb-5 px-5 h-14">
+    <nav
+      className="flex justify-between items-center w-full mb-5 px-5 h-14"
+      style={{
+        backgroundColor: "var(--navbar-bg-color)",
+        color: "var(--navbar-text-color)",
+      }}
+    >
       <Link href="/">
         <FaCode size={25} />
       </Link>
@@ -99,30 +136,15 @@ const NavBar = () => {
               tabIndex={0}
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {renderLinks("dropdown-item", () => setIsDropdownOpen(false))}
-              <li onClick={() => setIsDropdownOpen(false)}>
-                <a
-                  href="https://github.com/JoshuaShunk?tab=repositories"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="dropdown-item flex items-center space-x-2"
-                >
-                  <FaGithub size={20} />
-                </a>
-              </li>
+              {mobileLinks}
+              <ThemeToggle scale={1.7} onThemeChange={setCurrentTheme} />
             </ul>
           )}
         </div>
       ) : (
         <ul className="flex space-x-6 right-0">
           {desktopLinks}
-          <Link
-            href="https://github.com/JoshuaShunk?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaGithub size={20} className="my-3" />
-          </Link>
+          <ThemeToggle scale={1.7} onThemeChange={setCurrentTheme} />
         </ul>
       )}
     </nav>

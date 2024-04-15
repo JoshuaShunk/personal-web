@@ -38,7 +38,6 @@ const CardWithCarousel: React.FC<CardWithCarouselProps> = ({
         alt={activeImage.alt}
         width={500}
         height={300}
-        layout="responsive"
         className="w-full h-auto rounded-xl overflow-hidden"
       />
       <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 opacity-0 hover:opacity-100">

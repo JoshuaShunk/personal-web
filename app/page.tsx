@@ -15,10 +15,18 @@ import homePage from "/public/homepage.png";
 
 import CardWithCarousel from "./CardWithCarousel";
 
+import "./globals.css";
+
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col items-center min-h-screen py-10">
+      <div
+        className="bg-base-100 text-base-content h-auto flex flex-col items-center py-10"
+        style={{
+          backgroundColor: "var(--background-color)",
+          color: "var(--text-color)",
+        }}
+      >
         <TypingAnimation text="Joshua Shunk" className="text-6xl font-bold" />
         <div className="flex mt-6 space-x-4 mb-6">
           <Link
@@ -45,27 +53,7 @@ export default function Home() {
           <div className="text-center max-w-md mt-4">
             I&#39;m a computer science major with a passion for machine
             learning, algorithms, and web development. Currently studying
-            computer science @
-            <div className="dropdown dropdown-hover inline-block">
-              <span
-                tabIndex={0}
-                role="button"
-                className="text-info underline hover:cursor-pointer"
-              >
-                Stanford
-              </span>
-              <div
-                tabIndex={0}
-                className="dropdown-content card compact shadow bg-base-100 rounded-box w-64 z-10"
-              >
-                <div className="card-body">
-                  <h2 className="card-title">
-                    Want to know more about my education?
-                  </h2>
-                  <p> Check out my eduction page!</p>
-                </div>
-              </div>
-            </div>
+            computer science @ Stanford University.
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center space-x-0 md:space-x-10 space-y-4 md:space-y-0 mt-5">
@@ -119,8 +107,14 @@ export default function Home() {
         </a>
       </div>
 
-      <div className="flex flex-col items-center">
-        <p className="text-gray-500 mb-4">
+      <div
+        className="flex flex-col items-center"
+        style={{
+          backgroundColor: "var(--background-color)",
+          color: "var(--text-color)",
+        }}
+      >
+        <p className="text-gray-500 mb-full">
           Made w/ &#160; &#10084; &#160; by Josh
         </p>
         <Link

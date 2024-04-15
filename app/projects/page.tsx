@@ -8,7 +8,11 @@ import TypingAnimation from "../TypingAnimation.client";
 
 const projectPage = () => {
   return (
-    <>
+    <div className="bg-base-100"
+    style={{
+          backgroundColor: "var(--background-color)",
+          color: "var(--text-color)",
+        }}>
       <TypingAnimation
         text="Projects"
         className="text-4xl font-bold ml-10 pb-5"
@@ -112,7 +116,7 @@ const projectPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -2,8 +2,15 @@ import React from "react";
 import TypingAnimation from "../TypingAnimation.client";
 
 const EducationPage = () => {
+
   return (
-    <>
+    <div
+      className="bg-base-100"
+      style={{
+        backgroundColor: "var(--background-color)",
+        color: "var(--text-color)",
+      }}
+    >
       <TypingAnimation
         text="Education"
         className="text-4xl font-bold ml-10 pb-5"
@@ -28,7 +35,6 @@ const EducationPage = () => {
             <time className="font-mono italic">2023-2027</time>
             <div className="text-lg font-black">Stanford University</div>
             <p className="text-base font-semibold">B.Sc. in Computer Science</p>
-            
           </div>
           <hr />
         </li>
@@ -52,12 +58,11 @@ const EducationPage = () => {
           <div className="timeline-start md:text-end mb-10">
             <time className="font-mono italic">2019-2023</time>
             <div className="text-lg font-black">Perry High School</div>
-            
           </div>
           <hr />
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 

@@ -6,7 +6,27 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+} 
+
+:root[data-theme='light'] {
+  --background-color: #ffffff; /* Light theme background */
+  --text-color: #000000;       /* Light theme text color */
+  --navbar-bg-color: #ffffff; /* Light theme background color */
+  --navbar-text-color: #000000; /* Light theme text color */
 }
+:root[data-theme='dark'] {
+  --background-color: #363636; /* Dark theme background */
+  --text-color: #ffffff;       /* Dark theme text color */
+  --navbar-bg-color: #363636; /* Dark theme background color */
+  --navbar-text-color: #ffffff; /* Dark theme text color */
+}
+
+.radix-themes {
+  background-color: var(--background-color); /* Or the specific color you want */
+  color: var(--text-color); /* Or the specific color you want */
+
+}
+
 
 /* @media (prefers-color-scheme: dark) {
   :root {
@@ -19,7 +39,7 @@
 body {
   color: rgb(var(--foreground-rgb));
 
-}
+} 
 
 @layer utilities {
   .text-balance {
