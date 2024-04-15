@@ -37,10 +37,6 @@ const NavBar = () => {
       localStorage.setItem("theme", newTheme); // Update localStorage
       document.documentElement.setAttribute("data-theme", newTheme); // Update the document theme
     };
-
-    // Assuming ThemeToggle component accepts onThemeChange prop
-    // You would pass updateTheme to ThemeToggle component like this
-    // <ThemeToggle onThemeChange={updateTheme} />
   }, []);
 
   useEffect(() => {

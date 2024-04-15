@@ -19,7 +19,7 @@ const aboutPage = () => {
             className="w-2/3 md:w-full h-auto rounded-xl"
           />
         </div>
-        <div className="md:w-1/2 mx-auto flex flex-col items-center">
+        <div className="w-full md:max-w-xs lg:max-w-md xl:max-w-lg mx-auto">
           <div className="w-full md:w-3/4 lg:w-4/5">
             <div
               tabIndex={0}
@@ -50,7 +50,7 @@ const aboutPage = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:w-3/4 lg:w-4/5">
+          <div className="w-full md:max-w-xs lg:max-w-md xl:max-w-lg mx-auto">
             <div
               tabIndex={0}
               className="collapse collapse-open border border-base-300 bg-base-200"
@@ -80,9 +80,9 @@ const aboutPage = () => {
                                 <Image
                                   src="/StanfordLogo.png"
                                   alt="Stanford Logo"
-                                  width={56} 
-                                  height={56} 
-                                  layout="responsive" 
+                                  width={56}
+                                  height={56}
+                                  layout="responsive"
                                 />
                               </div>
                             </div>
@@ -114,9 +114,9 @@ const aboutPage = () => {
                                 <Image
                                   src="/PerryLogo.png"
                                   alt="Perry High School Logo"
-                                  width={56} 
-                                  height={56} 
-                                  layout="responsive" 
+                                  width={56}
+                                  height={56}
+                                  layout="responsive"
                                 />
                               </div>
                             </div>
