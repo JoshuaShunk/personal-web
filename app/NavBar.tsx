@@ -134,7 +134,7 @@ const NavBar = () => {
           {isDropdownOpen && (
             <ul
               tabIndex={0}
-              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 h-75vh"
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               {mobileLinks}
               <ThemeToggle scale={1.7} onThemeChange={setCurrentTheme} />

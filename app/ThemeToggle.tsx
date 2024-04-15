@@ -56,7 +56,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
   const iconSize = 10 * scale;
 
   return (
-    <label className={`swap swap-rotate ${className}`} style={toggleStyle}>
+    <label className={`swap swap-rotate pb-2 ${className}`} style={toggleStyle}>
       <input
         type="checkbox"
         className="theme-controller"
