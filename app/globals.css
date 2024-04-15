@@ -37,6 +37,7 @@
 } */
 
 body {
+  background-color: var(--background-color);
   color: rgb(var(--foreground-rgb));
 
 } 
