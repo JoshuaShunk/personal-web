@@ -140,7 +140,7 @@ const NavBar = () => {
               <ThemeToggle
                 scale={1.7}
                 onThemeChange={setCurrentTheme}
-                className="pb-4"
+                className="pb-3 pr-20 pl-6 pt-2"
               />
             </ul>
           )}
