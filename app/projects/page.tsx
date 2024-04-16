@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+
 import Image from "next/image";
 
 import furhat from "/public/furhat.png";
@@ -6,13 +7,19 @@ import googleEarth from "/public/googleEarth.jpg";
 import homePage from "/public/homepage.png";
 import TypingAnimation from "../TypingAnimation.client";
 
+import "../globals.css";
+
+
 const projectPage = () => {
+
   return (
-    <div className="bg-base-100"
-    style={{
-          backgroundColor: "var(--background-color)",
-          color: "var(--text-color)",
-        }}>
+    <div
+      className="bg-base-100"
+      style={{
+        backgroundColor: "var(--background-color)",
+        color: "var(--text-color)",
+      }}
+    >
       <TypingAnimation
         text="Projects"
         className="text-4xl font-bold ml-10 pb-5"

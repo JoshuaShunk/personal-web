@@ -34,14 +34,14 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaGithub size={50} />
+            <FaGithub size={50} color="blue" />
           </Link>
           <Link
             href="https://linkedin.com/in/joshuashunk"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaLinkedin size={50} />
+            <FaLinkedin size={50} color="blue" />
           </Link>
         </div>
         <div className="flex justify-center mb-2">
@@ -121,9 +121,9 @@ export default function Home() {
           href="https://github.com/JoshuaShunk/personal-web"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center"
+          className="flex items-center justify-center pt-2"
         >
-          <FaGithub size={20} />
+          <FaGithub size={20} color="blue" />
         </Link>
       </div>
     </>

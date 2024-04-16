@@ -21,6 +21,14 @@
   --navbar-text-color: #ffffff; /* Dark theme text color */
 }
 
+html, body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  /* ... */
+}
+
+
 .radix-themes {
   background-color: var(--background-color); /* Or the specific color you want */
   color: var(--text-color); /* Or the specific color you want */
@@ -41,6 +49,26 @@ body {
   color: rgb(var(--foreground-rgb));
 
 } 
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+  --background-color: #363636; /* Dark theme background */
+  --text-color: #ffffff;       /* Dark theme text color */
+  --navbar-bg-color: #363636; /* Dark theme background color */
+  --navbar-text-color: #ffffff; /* Dark theme text color */
+}
+}
+
+body.light {
+  background-color: #fff;
+  color: #333;
+}
+
+body.dark {
+  background-color: #333;
+  color: #fff;
+}
 
 @layer utilities {
   .text-balance {

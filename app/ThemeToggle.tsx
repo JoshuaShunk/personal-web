@@ -1,51 +1,55 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { useTheme } from "next-themes"; // Import useTheme from next-themes
 
 interface ThemeToggleProps {
   scale?: number;
   className?: string;
-  onThemeChange?: (theme: string) => void; // Optional callback to inform parent components of theme changes
+  currentTheme?: string;
+  onThemeChange?: (theme: string) => void;
 }
-
-
-const isBrowser =
-  typeof window !== "undefined" && typeof window.localStorage !== "undefined";
 
 const ThemeToggle: React.FC<ThemeToggleProps> = ({
   scale = 1,
   className = "",
   onThemeChange,
 }) => {
-  const [theme, setTheme] = useState(
-    () => (isBrowser ? localStorage.getItem("theme") : "light") || "light"
-  );
+  const { theme, setTheme, systemTheme } = useTheme(); // Use the useTheme hook
+  const isDarkMode =
+    theme === "dark" || (theme === "system" && systemTheme === "dark");
+
 
   const toggleTheme = () => {
-    if (!isBrowser) return; // Guard against non-browser environments
-
     const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    Cookies.set("theme", newTheme);
-    if (onThemeChange) {
-      onThemeChange(newTheme);
-    }
+
+    setTheme(isDarkMode ? "light" : "dark"); // Toggle between 'dark' and 'light'
+   
+    Cookies.set("theme", newTheme, { path: "/" });
   };
 
-  useEffect(() => {
-    if (!isBrowser) return; // Guard against non-browser environments
+  const initialTheme =
+    (typeof window !== "undefined" && localStorage.getItem("theme")) ||
+    (typeof window !== "undefined" &&
+      document.documentElement.getAttribute("data-theme")) ||
+    "light";
 
-    const root = document.documentElement;
-    const currentTheme = root.getAttribute("data-theme") || "light";
-    if (currentTheme !== theme) {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const localTheme = localStorage.getItem("theme");
+    const cookieTheme = Cookies.get("theme");
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+
+    if (localTheme && theme !== localTheme) {
+      setTheme(localTheme);
+      document.documentElement.setAttribute("data-theme", localTheme);
+    } else if (cookieTheme && theme !== cookieTheme) {
+      setTheme(cookieTheme);
+      document.documentElement.setAttribute("data-theme", cookieTheme);
+    } else if (currentTheme && theme !== currentTheme) {
       setTheme(currentTheme);
-      Cookies.set("theme", currentTheme);
-      if (onThemeChange) {
-        onThemeChange(currentTheme);
-      }
     }
-  }, []);
+  }, [theme]);
 
   const toggleStyle = {
     transform: `scale(${scale})`,
@@ -61,7 +65,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
         type="checkbox"
         className="theme-controller"
         onChange={toggleTheme}
-        checked={theme === "dark"}
+        checked={theme === "dark"} // This will now be correctly set based on the actual theme
       />
       {/* Sun Icon */}
       <svg

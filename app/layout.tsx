@@ -1,10 +1,11 @@
-
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { Theme } from "@radix-ui/themes";
+
+import { ThemeProvider } from "next-themes";
 
 import NavBar from "./NavBar";
 
@@ -22,11 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="light">
-      <body className={inter.className}>
-        <Theme>
+      <body
+        className={`bg-theme-background text-theme-text ${inter.className}`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={true}
+          storageKey="theme"
+        >
           <NavBar />
           <main className="py-20">{children}</main>
-        </Theme>
+        </ThemeProvider>
       </body>
     </html>
   );

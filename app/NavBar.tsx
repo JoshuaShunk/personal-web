@@ -1,55 +1,47 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Link from "next/link";
-import { FaCode, FaGithub, FaBars } from "react-icons/fa";
+import { FaCode, FaBars } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import classnames from "classnames";
+import { useTheme } from "next-themes";
+
 import ThemeToggle from "./ThemeToggle";
-// Import statement for Theme might not be necessary unless you are using it somewhere else
-// import { Theme } from "@radix-ui/themes";
+
+// Define the type for links array
+interface LinkInfo {
+  label: string;
+  href: string;
+}
+
+// Declaration and initialization of the links array
+const links: LinkInfo[] = [
+  { label: "About", href: "/about" },
+  { label: "Education", href: "/education" },
+  { label: "Research", href: "/research" },
+  { label: "Projects", href: "/projects" },
+  { label: "Contact", href: "/contact" },
+];
 
 const NavBar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState("light"); // default to 'light'
 
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const { theme, setTheme } = useTheme(); // This is the hook from next-themes
   const currentPath = usePathname();
 
-  const links = [
-    { label: "About", href: "/about" },
-    { label: "Education", href: "/education" },
-    { label: "Research", href: "/research" },
-    { label: "Projects", href: "/projects" },
-    { label: "Contact", href: "/contact" },
-  ];
-  useEffect(() => {
-    // Only executed on client-side
-    const theme = localStorage.getItem("theme") || "light";
-    setCurrentTheme(theme);
-  }, []);
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   useEffect(() => {
-    // Function to handle theme change
-    const updateTheme = (newTheme: string) => {
-      setCurrentTheme(newTheme); // Update the state
-      localStorage.setItem("theme", newTheme); // Update localStorage
-      document.documentElement.setAttribute("data-theme", newTheme); // Update the document theme
-    };
-  }, []);
-
-  useEffect(() => {
-    const checkSize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const checkSize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", checkSize);
     checkSize();
-
-    return () => {
-      window.removeEventListener("resize", checkSize);
-    };
+    return () => window.removeEventListener("resize", checkSize);
   }, []);
 
   useEffect(() => {
@@ -62,13 +54,8 @@ const NavBar = () => {
       }
     };
 
-    if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isDropdownOpen]);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -77,7 +64,7 @@ const NavBar = () => {
     return links.map((link) => {
       const isActiveLink = currentPath === link.href;
       const textColorClass = isActiveLink
-        ? currentTheme === "dark"
+        ? theme === "dark"
           ? "text-white"
           : "text-zinc-900"
         : "text-zinc-500";
@@ -135,8 +122,8 @@ const NavBar = () => {
               {mobileLinks}
               <ThemeToggle
                 scale={1.7}
-                onThemeChange={setCurrentTheme}
                 className="pb-3 pr-20 pl-6 pt-2"
+                currentTheme={theme}
               />
             </ul>
           )}
@@ -144,7 +131,7 @@ const NavBar = () => {
       ) : (
         <ul className="flex space-x-6 right-0">
           {desktopLinks}
-          <ThemeToggle scale={1.7} onThemeChange={setCurrentTheme} />
+          <ThemeToggle scale={1.7} currentTheme={theme} />
         </ul>
       )}
     </nav>
