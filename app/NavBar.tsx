@@ -18,9 +18,9 @@ interface LinkInfo {
 // Declaration and initialization of the links array
 const links: LinkInfo[] = [
   { label: "About", href: "/about" },
-  { label: "Education", href: "/education" },
   { label: "Research", href: "/research" },
   { label: "Projects", href: "/projects" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
