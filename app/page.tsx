@@ -27,7 +27,10 @@ export default function Home() {
           color: "var(--text-color)",
         }}
       >
-        <TypingAnimation text="Joshua Shunk" className="text-6xl font-bold" />
+        <TypingAnimation
+          text="Joshua Shunk"
+          className="text-5xl md:text-6xl font-bold"
+        />
         <div className="flex mt-6 space-x-4 mb-6">
           <Link
             href="https://github.com/JoshuaShunk?tab=repositories"
@@ -44,11 +47,18 @@ export default function Home() {
             <FaLinkedin size={50} color="blue" />
           </Link>
         </div>
-        <div className="flex justify-center mb-2">
-          <Badge className="mx-2">Software Engineering</Badge>
-          <Badge className="mx-2">Machine Learning</Badge>
-          <Badge className="mx-2">Web Development</Badge>
+        <div className="flex justify-center mb-2 w-max">
+          <Badge color="blue" className="text-xs sm:text-sm mx-2">
+            Software Engineering
+          </Badge>
+          <Badge color="blue" className="text-xs sm:text-sm mx-2">
+            Machine Learning
+          </Badge>
+          <Badge color="blue" className="text-xs sm:text-sm mx-2">
+            Web Development
+          </Badge>
         </div>
+
         <div className="flex flex-col items-center">
           <div className="text-center max-w-md mt-4">
             I&#39;m a computer science major with a passion for machine
