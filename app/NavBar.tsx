@@ -30,12 +30,8 @@ const NavBar = () => {
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const { theme, setTheme } = useTheme(); // This is the hook from next-themes
+  const { theme } = useTheme(); // This is the hook from next-themes
   const currentPath = usePathname();
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   useEffect(() => {
     const checkSize = () => setIsMobile(window.innerWidth < 768);

@@ -50,6 +50,15 @@ body {
 
 } 
 
+html.dark .research-invert {
+  filter: invert(1);
+}
+
+.research-invert {
+  filter: none; /* Ensures that by default, no filter is applied */
+}
+
+
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   :root {

@@ -64,7 +64,7 @@ export default function Home() {
                 alt="Research"
                 width={500}
                 height={300}
-                className="w-full h-auto rounded-xl overflow-hidden"
+                className="w-full h-auto rounded-xl overflow-hidden research-invert"
               />
             </figure>
             {/* Ensure card-body itself is a flex container directing column-wise */}

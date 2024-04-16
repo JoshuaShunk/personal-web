@@ -10,7 +10,7 @@ const aboutPage = () => {
         className="text-4xl font-bold ml-10 pb-5"
       />
       <div className="flex flex-col md:flex-row justify-end px-4">
-        <div className="md:w-1/2 flex justify-center md:justify-center items-center">
+        <div className="md:w-1/2 flex justify-center md:justify-center items-center pl-9">
           <Image
             src="/joshuaheadshot.jpg"
             alt="Joshua Shunk"
@@ -20,34 +20,31 @@ const aboutPage = () => {
           />
         </div>
         <div className="w-full md:max-w-xs lg:max-w-md xl:max-w-lg mx-auto">
-          <div className="w-full md:w-3/4 lg:w-4/5">
-            <div
-              tabIndex={0}
-              className="collapse collapse-open border border-base-300 bg-base-200 my-5"
-            >
-              <div className="collapse-title text-xl font-medium">About Me</div>
-              <div className="collapse-content">
-                <p>
-                  Hi my name is Joshua Shunk! I am an undergraduate student of
-                  Computer Science at Stanford University. I completed my high
-                  school education as the valedictorian of Perry High School,
-                  achieving a GPA of 4.87. At the Regeneron Science Talent
-                  Search, I was recognized for the development of
-                  &quot;neuron-specific dropout&quot;. Beyond my academic and
-                  research achievements, I have demonstrated exemplary
-                  leadership in various extracurricular endeavors. As the
-                  Captain of the Varsity Division 1 Team for Basha-Perry Hockey,
-                  I exemplified dedication to athletics while maintaining
-                  academic excellence. In addition, I served as the President of
-                  the National Honors Society and the Math Club at Perry High
-                  School, initiating several transformative and inclusive
-                  projects. With a comprehensive foundation in Python and Java
-                  programming and a specialization in neural network
-                  optimization, I am poised to leverage artificial intelligence
-                  to address global challenges and welcome opportunities for
-                  strategic collaboration.
-                </p>
-              </div>
+          <div
+            tabIndex={0}
+            className="collapse collapse-open border border-base-300 bg-base-200 my-5"
+          >
+            <div className="collapse-title text-xl font-medium">About Me</div>
+            <div className="collapse-content">
+              <p>
+                Hi my name is Joshua Shunk! I am an undergraduate student of
+                Computer Science at Stanford University. I completed my high
+                school education as the valedictorian of Perry High School,
+                achieving a GPA of 4.87. At the Regeneron Science Talent Search,
+                I was recognized for the development of &quot;neuron-specific
+                dropout&quot;. Beyond my academic and research achievements, I
+                have demonstrated exemplary leadership in various
+                extracurricular endeavors. As the Captain of the Varsity
+                Division 1 Team for Basha-Perry Hockey, I exemplified dedication
+                to athletics while maintaining academic excellence. In addition,
+                I served as the President of the National Honors Society and the
+                Math Club at Perry High School, initiating several
+                transformative and inclusive projects. With a comprehensive
+                foundation in Python and Java programming and a specialization
+                in neural network optimization, I am poised to leverage
+                artificial intelligence to address global challenges and welcome
+                opportunities for strategic collaboration.
+              </p>
             </div>
           </div>
           <div className="w-full md:max-w-xs lg:max-w-md xl:max-w-lg mx-auto">
