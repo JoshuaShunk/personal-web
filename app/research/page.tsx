@@ -18,8 +18,8 @@ interface ResearchInfo {
 const research: ResearchInfo[] = [
   {
     src: nsDropout,
-    alt: "Neruon-specific Dropout",
-    title: "Neruon-specific Dropout",
+    alt: "Neuron-specific Dropout",
+    title: "Neuron-specific Dropout",
     description:
       "An innovative approach to regularization in neural networks, aiming to reduce overfitting and the dependence on large training datasets by selectively deactivating neurons",
     link: "https://arxiv.org/abs/2201.06938",

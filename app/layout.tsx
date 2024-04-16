@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { Theme } from "@radix-ui/themes";
 
 import { ThemeProvider } from "next-themes";
 
