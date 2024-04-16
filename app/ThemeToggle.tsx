@@ -49,7 +49,7 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
     } else if (currentTheme && theme !== currentTheme) {
       setTheme(currentTheme);
     }
-  }, [theme]);
+  }, [theme, setTheme]);
 
   const toggleStyle = {
     transform: `scale(${scale})`,
