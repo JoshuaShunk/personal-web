@@ -62,8 +62,8 @@ export default function Home() {
         <div className="flex flex-col items-center">
           <div className="text-center max-w-md mt-4">
             I&#39;m a computer science major with a passion for machine
-            learning, algorithms, and web development. Currently studying
-            computer science @ Stanford University.
+            learning, algorithms, and web development. Currently studying @
+            Stanford University.
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-center space-x-0 md:space-x-10 space-y-4 md:space-y-0 mt-5">
