@@ -79,7 +79,7 @@ const aboutPage = () => {
                                   alt="Stanford Logo"
                                   width={56}
                                   height={56}
-                                  layout="responsive"
+                               
                                 />
                               </div>
                             </div>
@@ -113,7 +113,7 @@ const aboutPage = () => {
                                   alt="Perry High School Logo"
                                   width={56}
                                   height={56}
-                                  layout="responsive"
+                                
                                 />
                               </div>
                             </div>
