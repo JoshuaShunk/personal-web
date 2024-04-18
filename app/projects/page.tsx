@@ -53,7 +53,7 @@ const projects: ProjectInfo[] = [
   {
     src: covidWebsite,
     alt: "Covid-19 Diagnosis Website ",
-    title: "Diffreatiate COVID-19 thorugh X-ray with Machine Learning",
+    title: "Diffreatiate COVID-19 X-ray with Machine Learning",
     description:
       "Flask based website used to diagnose COVID-19 with a custom machine learning model.",
     badge: "@Personal",
