@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 
 import furhat from "/public/furhat.png";
 import googleEarth from "/public/googleEarth.jpg";
-import covidWebsite from "/public/covidWebsite.png";
+import covidWebsite from "/public/CovidWebsite.png";
 import homePage from "/public/homepage.png";
 import TypingAnimation from "../TypingAnimation.client";
 
