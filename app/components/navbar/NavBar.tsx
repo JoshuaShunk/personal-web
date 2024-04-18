@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import classnames from "classnames";
 import { useTheme } from "next-themes";
 
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "../ThemeToggle";
 
 // Define the type for links array
 interface LinkInfo {

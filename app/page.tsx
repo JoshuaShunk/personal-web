@@ -1,10 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import { FaCode, FaGithub, FaLinkedin } from "react-icons/fa";
+import {FaGithub, FaLinkedin } from "react-icons/fa";
 
-import { useState, useEffect } from "react";
-import { Badge, Button, DataList, Link } from "@radix-ui/themes";
+import { Badge, Link } from "@radix-ui/themes";
 
 import TypingAnimation from "./TypingAnimation.client";
 

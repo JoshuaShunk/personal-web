@@ -4,6 +4,7 @@ import Image, { StaticImageData } from "next/image";
 
 import furhat from "/public/furhat.png";
 import googleEarth from "/public/googleEarth.jpg";
+import covidWebsite from "/public/covidWebsite.png";
 import homePage from "/public/homepage.png";
 import TypingAnimation from "../TypingAnimation.client";
 
@@ -26,7 +27,8 @@ const projects: ProjectInfo[] = [
     src: furhat,
     alt: "AI Ticketing Agent",
     title: "AI Ticketing Agent",
-    description: "The ASCAdmissionBot is a project designed to work with the Furhat robot, providing a series of flows, responses, and utilities to facilitate interactions.",
+    description:
+      "The ASCAdmissionBot is a project designed to work with the Furhat robot, providing a series of flows, responses, and utilities to facilitate interactions.",
     badge: "@Arizona Science Center",
     link: "https://github.com/JoshuaShunk/ASCAdmissionBot",
   },
@@ -34,7 +36,8 @@ const projects: ProjectInfo[] = [
     src: googleEarth,
     alt: "Google Earth",
     title: "Hand Tracking Google Earth Controller",
-    description: "Hands free full control of Google Earth desktop application using computer vision.",
+    description:
+      "Hands free full control of Google Earth desktop application using computer vision.",
     badge: "@Arizona Science Center",
     link: "https://github.com/JoshuaShunk/Ultraleap-Google-Earth-Controller-",
   },
@@ -42,9 +45,19 @@ const projects: ProjectInfo[] = [
     src: homePage,
     alt: "Personal Website",
     title: "Personal Website",
-    description: "React based personal website built with Next.js and TailwindCSS to showcase my projects, research, and resume to potential employers and collaborators.",
+    description:
+      "React based personal website built with Next.js and TailwindCSS to showcase my projects, research, and resume to potential employers and collaborators.",
     badge: "@Personal",
     link: "https://github.com/JoshuaShunk/personal-web",
+  },
+  {
+    src: covidWebsite,
+    alt: "Covid-19 Diagnosis Website ",
+    title: "Diffreatiate COVID-19 thorugh X-ray with Machine Learning",
+    description:
+      "Flask based website used to diagnose COVID-19 with a custom machine learning model.",
+    badge: "@Personal",
+    link: "https://github.com/JoshuaShunk/covidWebsite",
   },
 ];
 

@@ -3,13 +3,13 @@ import TypingAnimation from "../TypingAnimation.client";
 
 const blogPage = () => {
   return (
-    <>
+    <div>
       <TypingAnimation
         text="The Blog"
-        className="text-4xl font-bold ml-10 pb-5"
+        className="text-6xl font-bold ml-10 pb-5"
       />
-      <div><h1>Blog Coming Soon!</h1></div>
-    </>
+      <h1 className="pl-9">Coming Soon!</h1>
+    </div>
   );
 };
 
