@@ -1,54 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useTheme } from "next-themes"; // Import useTheme from next-themes
 
 interface ThemeToggleProps {
   scale?: number;
   className?: string;
-  currentTheme?: string;
-  onThemeChange?: (theme: string) => void;
 }
 
 const ThemeToggle: React.FC<ThemeToggleProps> = ({
   scale = 1,
   className = "",
-  onThemeChange,
 }) => {
   const { theme, setTheme, systemTheme } = useTheme(); // Use the useTheme hook
+  const [mounted, setMounted] = useState(false);
   const isDarkMode =
     theme === "dark" || (theme === "system" && systemTheme === "dark");
-
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
 
     setTheme(isDarkMode ? "light" : "dark"); // Toggle between 'dark' and 'light'
-   
+
     Cookies.set("theme", newTheme, { path: "/" });
   };
 
-  const initialTheme =
-    (typeof window !== "undefined" && localStorage.getItem("theme")) ||
-    (typeof window !== "undefined" &&
-      document.documentElement.getAttribute("data-theme")) ||
-    "light";
+  
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const localTheme = localStorage.getItem("theme");
     const cookieTheme = Cookies.get("theme");
     const currentTheme = document.documentElement.getAttribute("data-theme");
 
-    if (localTheme && theme !== localTheme) {
-      setTheme(localTheme);
-      document.documentElement.setAttribute("data-theme", localTheme);
-    } else if (cookieTheme && theme !== cookieTheme) {
+    if (cookieTheme && theme !== cookieTheme) {
       setTheme(cookieTheme);
       document.documentElement.setAttribute("data-theme", cookieTheme);
     } else if (currentTheme && theme !== currentTheme) {
       setTheme(currentTheme);
     }
+
+    setMounted(true);
   }, [theme, setTheme]);
 
   const toggleStyle = {
@@ -58,6 +49,10 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
   };
 
   const iconSize = 10 * scale;
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <label className={`swap swap-rotate ${className}`} style={toggleStyle}>

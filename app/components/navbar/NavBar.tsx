@@ -119,7 +119,6 @@ const NavBar = () => {
               <ThemeToggle
                 scale={1.7}
                 className="pb-3 pr-20 pl-6 pt-2"
-                currentTheme={theme}
               />
             </ul>
           )}
@@ -127,7 +126,7 @@ const NavBar = () => {
       ) : (
         <ul className="flex space-x-6 right-0">
           {desktopLinks}
-          <ThemeToggle scale={1.7} currentTheme={theme} />
+          <ThemeToggle scale={1.7} />
         </ul>
       )}
     </nav>

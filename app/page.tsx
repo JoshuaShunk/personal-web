@@ -71,6 +71,7 @@ export default function Home() {
                 alt="Research"
                 width={500}
                 height={300}
+                priority
                 className="w-full h-auto rounded-xl overflow-hidden research-invert"
               />
             </figure>
