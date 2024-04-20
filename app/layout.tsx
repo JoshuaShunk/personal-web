@@ -1,10 +1,10 @@
+import React, { ReactNode } from "react";
 import "@radix-ui/themes/styles.css";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "next-themes";
 import NavBar from "./components/navbar/NavBar";
-import type { ReactNode, FC } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,17 +18,16 @@ export const metadata = {
   description: "Personal website created to show off my projects and resume.",
 };
 
-const RootLayout: FC<RootLayoutProps> = ({ children, nonce }) => {
+const RootLayout: React.FC<RootLayoutProps> = ({ children, nonce }) => {
   return (
     <html lang="en">
       <head>
         <style>{`body { display: none; }`}</style>
-        <script nonce={nonce} src="/set-theme.js" async></script>{" "}
-        {/* Made script asynchronous */}
+        <script nonce={nonce} src="/set-theme.js" async></script>
       </head>
       <body
         className={`bg-theme-background text-theme-text ${inter.className}`}
-        style={{ display: "block" }} // Re-enable display after theme is set
+        style={{ display: "block" }}
       >
         <ThemeProvider
           attribute="class"
