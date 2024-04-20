@@ -6,6 +6,8 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import NavBar from "./components/navbar/NavBar";
 
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,7 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <style>{`body { display: none; }`}</style>
-        <script nonce={nonce} defer src="/set-theme.js"></script>{" "}
+        <script nonce={nonce} async src="/set-theme.js"></script>{" "}
         {/* Secured by nonce */}
       </head>
       <body
