@@ -1,23 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Link from "next/link";
 import { FaCode, FaBars } from "react-icons/fa";
 import { usePathname } from "next/navigation";
-import classnames from "classnames";
 import { useTheme } from "next-themes";
 
 import ThemeToggle from "../ThemeToggle";
 
 import styles from "./navbar.module.css"; // Importing CSS module
 
-// Define the type for links array
 interface LinkInfo {
   label: string;
   href: string;
 }
 
-// Declaration and initialization of the links array
 const links: LinkInfo[] = [
   { label: "About", href: "/about" },
   { label: "Research", href: "/research" },
@@ -29,16 +26,19 @@ const links: LinkInfo[] = [
 const NavBar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [hydrated, setHydrated] = useState(false); // State to force rerender on client
+  const [mounted, setMounted] = useState(false); // State to track mounting
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme(); // This is the hook from next-themes
+  const { theme } = useTheme();
   const currentPath = usePathname();
 
-  useEffect(() => {
-    const checkSize = () => setIsMobile(window.innerWidth < 768);
+  useLayoutEffect(() => {
+    const checkSize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkSize(); // Call immediately to set the initial state before paint
     window.addEventListener("resize", checkSize);
-    checkSize();
+    setMounted(true); // Set mounted to true after setup is complete
     return () => window.removeEventListener("resize", checkSize);
   }, []);
 
@@ -54,11 +54,6 @@ const NavBar = () => {
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isDropdownOpen]);
-
-  useEffect(() => {
-    // Force update on client side after initial mount
-    setHydrated(true);
   }, []);
 
   useEffect(() => {
@@ -68,50 +63,43 @@ const NavBar = () => {
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const renderLinks = (baseStyle = "", onClick?: () => void) => {
-    return links.map((link) => {
+  const renderLinks = () =>
+    links.map((link) => {
       const isActive = currentPath === link.href;
       const textColorClass = isActive
         ? theme === "dark"
           ? styles.textActiveDark
           : styles.textActiveLight
         : styles.textInactive;
-      const hoverClass = "hover:text-zinc-800";
-
-      const linkClasses = `${styles.linkBase} ${textColorClass} ${styles.textHover}`;
-
       return (
         <Link
           key={link.href}
           href={link.href}
-          className={`text-lg py-2 px-4 transition-colors cursor-pointer ${textColorClass} ${hoverClass}`}
+          className={`text-lg py-2 px-4 transition-colors cursor-pointer ${textColorClass} hover:text-zinc-800`}
+          onClick={() => setIsDropdownOpen(false)}
         >
-          <div onClick={onClick} className={linkClasses + " cursor-pointer"}>
-            {link.label}
-          </div>
+          {link.label}
         </Link>
       );
     });
-  };
 
-  const desktopLinks = renderLinks();
-  const mobileLinks = renderLinks("dropdown-item", () =>
-    setIsDropdownOpen(false)
-  );
+  if (!mounted) {
+    // Placeholder div with the same height as the navbar to maintain layout
+    return <div className="w-full mb-5 px-5 h-14 navbar"></div>;
+  }
 
   return (
     <nav
-      className="flex justify-between items-center w-full mb-5 px-5 h-14"
-      style={{
-        backgroundColor: "var(--navbar-bg-color)",
-        color: "var(--navbar-text-color)",
-      }}
+      className={`flex justify-between items-center w-full mb-5 px-5 h-14 navbar ${
+        isMobile ? "" : "visible-lg"
+      }`}
+      style={{ visibility: isMobile ? "visible" : undefined }}
     >
-      <Link href="/">
+      <Link className="pt-2" href="/">
         <FaCode size={25} />
       </Link>
       {isMobile ? (
-        <div className="dropdown dropdown-end z-50" ref={dropdownRef}>
+        <div className="dropdown dropdown-end z-50 pt-2" ref={dropdownRef}>
           <button
             onClick={toggleDropdown}
             tabIndex={0}
@@ -124,14 +112,14 @@ const NavBar = () => {
               tabIndex={0}
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
-              {mobileLinks}
+              {renderLinks()}
               <ThemeToggle scale={1.7} className="pb-3 pr-20 pl-6 pt-2" />
             </ul>
           )}
         </div>
       ) : (
-        <ul className="flex space-x-6 right-0">
-          {desktopLinks}
+        <ul className="flex space-x-6">
+          {renderLinks()}
           <ThemeToggle scale={1.7} />
         </ul>
       )}

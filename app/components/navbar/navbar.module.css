@@ -1,3 +1,14 @@
+/* navbar.module.css */
+.navbar-initial {
+  visibility: hidden;
+}
+
+.navbar-ready {
+  visibility: visible;
+  transition: visibility 0.3s ease-in;
+}
+
+
 /* Use variables within local class definitions */
 .textActive {
   color: var(--text-active);

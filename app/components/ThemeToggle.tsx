@@ -24,8 +24,6 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
     Cookies.set("theme", newTheme, { path: "/" });
   };
 
-  
-
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -50,9 +48,10 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({
 
   const iconSize = 10 * scale;
 
-  if (!mounted) {
-    return null;
-  }
+    if (!mounted) {
+      return;
+    }
+
 
   return (
     <label className={`swap swap-rotate ${className}`} style={toggleStyle}>
