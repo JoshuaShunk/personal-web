@@ -71,11 +71,13 @@ const NavBar = () => {
           ? styles.textActiveDark
           : styles.textActiveLight
         : styles.textInactive;
+
+      const hoverClass = isActive ? "" : "hover:text-zinc-800";
       return (
         <Link
           key={link.href}
           href={link.href}
-          className={`text-lg py-2 px-4 transition-colors cursor-pointer ${textColorClass} hover:text-zinc-800`}
+          className={`text-lg py-2 px-4 transition-colors cursor-pointer ${textColorClass} ${hoverClass}`}
           onClick={() => setIsDropdownOpen(false)}
         >
           {link.label}
