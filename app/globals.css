@@ -32,6 +32,17 @@
   --text-hover: var(--text-hover-dark);
 }
 
+:root[data-theme="dark"] {
+  --bg-color: #333;
+  --text-color: #fff;
+}
+
+:root[data-theme="light"] {
+  --bg-color: #fff;
+  --text-color: #000;
+}
+
+
 /* Applying themes using class selectors */
 .light-mode {
   --text-color: #000000;       /* Light theme text color */

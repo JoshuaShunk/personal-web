@@ -1,20 +1,26 @@
+// This enables strict mode in JavaScript to prevent common pitfalls.
 "use client";
 
+// Importing necessary React hooks and components.
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Link from "next/link";
 import { FaCode, FaBars } from "react-icons/fa";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 
+// Custom component for toggling the theme.
 import ThemeToggle from "../ThemeToggle";
 
-import styles from "./navbar.module.css"; // Importing CSS module
+// CSS module for styling components specifically within this navbar.
+import styles from "./navbar.module.css";
 
+// Type definition for navigation links.
 interface LinkInfo {
   label: string;
   href: string;
 }
 
+// Array containing the navigation links to be displayed.
 const links: LinkInfo[] = [
   { label: "About", href: "/about" },
   { label: "Research", href: "/research" },
@@ -24,24 +30,28 @@ const links: LinkInfo[] = [
 ];
 
 const NavBar = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [mounted, setMounted] = useState(false); // State to track mounting
+  const [isMobile, setIsMobile] = useState(false); // State to manage mobile view toggle.
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State to manage dropdown visibility.
+  const [mounted, setMounted] = useState(false); // State to track if component is mounted.
 
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const { theme } = useTheme();
-  const currentPath = usePathname();
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref for the dropdown menu to manage outside clicks.
+  const { theme } = useTheme(); // Current theme state from 'next-themes'.
+  const currentPath = usePathname(); // Pathname from 'next/navigation' to highlight the active link.
 
+  // Layout effect to handle window resizing and set mobile view state.
   useLayoutEffect(() => {
     const checkSize = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(window.innerWidth < 768); // Mobile view if window width is less than 768px.
     };
-    checkSize(); // Call immediately to set the initial state before paint
-    window.addEventListener("resize", checkSize);
-    setMounted(true); // Set mounted to true after setup is complete
-    return () => window.removeEventListener("resize", checkSize);
+
+    checkSize(); // Initialize state based on current window size.
+    window.addEventListener("resize", checkSize); // Add resize listener.
+    setMounted(true); // Confirm component mount completion.
+
+    return () => window.removeEventListener("resize", checkSize); // Cleanup resize listener.
   }, []);
 
+  // Effect to close dropdown if clicked outside.
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -56,13 +66,16 @@ const NavBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Effect to apply theme-based body class.
   useEffect(() => {
     document.body.className =
       theme === "dark" ? styles.darkMode : styles.lightMode;
   }, [theme]);
 
+  // Function to toggle the visibility of the dropdown.
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
+  // Function to render navigation links as list items.
   const renderLinks = () =>
     links.map((link) => {
       const isActive = currentPath === link.href;
@@ -85,11 +98,12 @@ const NavBar = () => {
       );
     });
 
+  // Render placeholder during mounting process to prevent layout shift.
   if (!mounted) {
-    // Placeholder div with the same height as the navbar to maintain layout
     return <div className="w-full mb-5 px-5 h-14 navbar"></div>;
   }
 
+  // Main render method for NavBar component.
   return (
     <nav
       className={`flex justify-between items-center w-full mb-5 px-5 h-14 navbar ${

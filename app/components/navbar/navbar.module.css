@@ -1,39 +1,41 @@
-/* navbar.module.css */
+/* Styles for initial and ready states of the navbar */
 .navbar-initial {
-  visibility: hidden;
+  visibility: hidden; /* Initially hide the navbar */
 }
 
 .navbar-ready {
-  visibility: visible;
-  transition: visibility 0.3s ease-in;
+  visibility: visible; /* Make navbar visible */
+  transition: visibility 0.3s ease-in; /* Smooth transition for visibility changes */
 }
 
 
-/* Use variables within local class definitions */
+/* Text styling based on theme and interaction states */
 .textActive {
-  color: var(--text-active);
+  color: var(--text-active); /* Use the active text color from CSS variables */
 }
 
 .textInactive {
-  color: var(--text-inactive);
+  color: var(--text-inactive); /* Use the inactive text color from CSS variables */
 }
 
 .textHover:hover {
-  color: var(--text-hover);
+  color: var(--text-hover); /* Change text color on hover using CSS variable */
 }
 
+/* Global modifiers for active text colors across light and dark themes */
 .lightMode :global(.textActive),
 .darkMode :global(.textActive) {
-  /* Ensure the correct variable is used based on the theme */
-  color: var(--text-active);
+  color: var(--text-active); /* Ensure active text color consistency across themes */
 }
 
+/* Global modifiers for inactive text colors across light and dark themes */
 .lightMode :global(.textInactive),
 .darkMode :global(.textInactive) {
-  color: var(--text-inactive);
+  color: var(--text-inactive); /* Ensure inactive text color consistency across themes */
 }
 
+/* Global modifiers for hover text colors across light and dark themes */
 .lightMode :global(.textHover):hover,
 .darkMode :global(.textHover):hover {
-  color: var(--text-hover);
+  color: var(--text-hover); /* Ensure hover text color consistency across themes */
 }
