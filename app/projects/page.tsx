@@ -10,7 +10,6 @@ import TypingAnimation from "../TypingAnimation.client";
 
 import "../globals.css";
 
-
 // Define the type for project data
 interface ProjectInfo {
   src: StaticImageData;
@@ -62,9 +61,19 @@ const projects: ProjectInfo[] = [
 ];
 
 const ProjectCard = ({ project }: { project: ProjectInfo }) => (
-  <div className="card w-96 mx-4 md:mx-0 md:ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200" style={{ height: "300px" }}>
+  <div
+    className="card w-96 mx-4 md:mx-0 md:ml-8 bg-base-100 shadow-xl image-full hover:scale-105 transition-transform duration-200"
+    style={{ height: "300px" }}
+  >
     <figure className="relative w-full h-full">
-      <Image src={project.src} alt={project.alt} style={{ objectFit: "cover" }} fill />
+      <Image
+        src={project.src}
+        alt={project.alt}
+        style={{ objectFit: "cover" }}
+        priority
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      />
     </figure>
     <div className="card-body">
       <h2 className="card-title">{project.title}</h2>
@@ -80,10 +89,24 @@ const ProjectCard = ({ project }: { project: ProjectInfo }) => (
 );
 
 const ProjectPage = () => (
-  <div className="bg-base-100" style={{ backgroundColor: "var(--background-color)", color: "var(--text-color)" }}>
-    <TypingAnimation text="Projects" className="text-4xl font-bold ml-10 pb-5" />
-    <div className="flex flex-wrap items-start gap-4" style={{ minHeight: "200px" }}>
-      {projects.map(project => <ProjectCard key={project.title} project={project} />)}
+  <div
+    className="bg-base-100"
+    style={{
+      backgroundColor: "var(--background-color)",
+      color: "var(--text-color)",
+    }}
+  >
+    <TypingAnimation
+      text="Projects"
+      className="text-4xl font-bold ml-10 pb-5"
+    />
+    <div
+      className="flex flex-wrap items-start gap-4"
+      style={{ minHeight: "200px" }}
+    >
+      {projects.map((project) => (
+        <ProjectCard key={project.title} project={project} />
+      ))}
     </div>
   </div>
 );

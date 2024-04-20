@@ -44,6 +44,7 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
           enableSystem={true}
+          enableColorScheme={true}
           storageKey="theme"
         >
           <NavBar />

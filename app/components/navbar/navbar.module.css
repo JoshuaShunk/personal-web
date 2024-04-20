@@ -1,0 +1,28 @@
+/* Use variables within local class definitions */
+.textActive {
+  color: var(--text-active);
+}
+
+.textInactive {
+  color: var(--text-inactive);
+}
+
+.textHover:hover {
+  color: var(--text-hover);
+}
+
+.lightMode :global(.textActive),
+.darkMode :global(.textActive) {
+  /* Ensure the correct variable is used based on the theme */
+  color: var(--text-active);
+}
+
+.lightMode :global(.textInactive),
+.darkMode :global(.textInactive) {
+  color: var(--text-inactive);
+}
+
+.lightMode :global(.textHover):hover,
+.darkMode :global(.textHover):hover {
+  color: var(--text-hover);
+}

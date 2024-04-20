@@ -6,16 +6,45 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-} 
 
-:root[data-theme='light'] {
-  --background-color: #ffffff; /* Light theme background */
-  --text-color: #000000;       /* Light theme text color */
+  --text-active-dark: #ffffff;  /* Active text color in dark mode */
+  --text-inactive-dark: #71717a; /* Inactive text color in dark mode */
+  --text-hover-dark: #cbd5e0;  /* Hover text color in dark mode */
+
+  --text-active-light: #1a202c; /* Active text color in light mode */
+  --text-inactive-light: #71717a; /* Inactive text color in light mode */
+  --text-hover-light: #27272a;  /* Hover text color in light mode */
 }
 
-:root[data-theme='dark'] {
+[data-theme='light'] {
+  --background-color: #ffffff; /* Light theme background */
+  --text-color: #000000;       /* Light theme text color */
+  --text-active: var(--text-active-light);
+  --text-inactive: var(--text-inactive-light);
+  --text-hover: var(--text-hover-light);
+}
+
+[data-theme='dark'] {
   --background-color: #363636; /* Dark theme background */
   --text-color: #ffffff;       /* Dark theme text color */
+  --text-active: var(--text-active-dark);
+  --text-inactive: var(--text-inactive-dark);
+  --text-hover: var(--text-hover-dark);
+}
+
+/* Applying themes using class selectors */
+.light-mode {
+  --text-color: #000000;       /* Light theme text color */
+  --text-active: var(--text-active-light);
+  --text-inactive: var(--text-inactive-light);
+  --text-hover: var(--text-hover-light);
+}
+
+.dark-mode {
+  --text-color: #ffffff;       /* Dark theme text color */
+  --text-active: var(--text-active-dark);
+  --text-inactive: var(--text-inactive-dark);
+  --text-hover: var(--text-hover-dark);
 }
 
 html, body {
@@ -24,11 +53,9 @@ html, body {
   min-height: 100vh;
 }
 
-
 .radix-themes {
-  background-color: var(--background-color); /* Or the specific color you want */
-  color: var(--text-color); /* Or the specific color you want */
-
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 html.dark .research-invert {
@@ -36,7 +63,7 @@ html.dark .research-invert {
 }
 
 .research-invert {
-  filter: none; /* Ensures that by default, no filter is applied */
+  filter: none;
 }
 
 @layer utilities {

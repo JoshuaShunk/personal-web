@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FaCode, FaBars } from "react-icons/fa";
 import { usePathname } from "next/navigation";
@@ -8,6 +8,8 @@ import classnames from "classnames";
 import { useTheme } from "next-themes";
 
 import ThemeToggle from "../ThemeToggle";
+
+import styles from "./navbar.module.css"; // Importing CSS module
 
 // Define the type for links array
 interface LinkInfo {
@@ -27,9 +29,9 @@ const links: LinkInfo[] = [
 const NavBar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [hydrated, setHydrated] = useState(false); // State to force rerender on client
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   const { theme } = useTheme(); // This is the hook from next-themes
   const currentPath = usePathname();
 
@@ -54,29 +56,36 @@ const NavBar = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isDropdownOpen]);
 
+  useEffect(() => {
+    // Force update on client side after initial mount
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    document.body.className =
+      theme === "dark" ? styles.darkMode : styles.lightMode;
+  }, [theme]);
+
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
-  const renderLinks = (baseStyle: string = "", onClick?: () => void) => {
+  const renderLinks = (baseStyle = "", onClick?: () => void) => {
     return links.map((link) => {
-      const isActiveLink = currentPath === link.href;
-      const textColorClass = isActiveLink
+      const isActive = currentPath === link.href;
+      const textColorClass = isActive
         ? theme === "dark"
-          ? "text-white"
-          : "text-zinc-900"
-        : "text-zinc-500";
+          ? styles.textActiveDark
+          : styles.textActiveLight
+        : styles.textInactive;
+      const hoverClass = "hover:text-zinc-800";
 
-      const linkClasses = classnames(
-        baseStyle,
-        "text-lg py-2 px-4",
-        textColorClass,
-        {
-          "hover:text-zinc-800": true,
-          "transition-colors": true,
-        }
-      );
+      const linkClasses = `${styles.linkBase} ${textColorClass} ${styles.textHover}`;
 
       return (
-        <Link key={link.href} href={link.href}>
+        <Link
+          key={link.href}
+          href={link.href}
+          className={`text-lg py-2 px-4 transition-colors cursor-pointer ${textColorClass} ${hoverClass}`}
+        >
           <div onClick={onClick} className={linkClasses + " cursor-pointer"}>
             {link.label}
           </div>
@@ -116,10 +125,7 @@ const NavBar = () => {
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               {mobileLinks}
-              <ThemeToggle
-                scale={1.7}
-                className="pb-3 pr-20 pl-6 pt-2"
-              />
+              <ThemeToggle scale={1.7} className="pb-3 pr-20 pl-6 pt-2" />
             </ul>
           )}
         </div>
