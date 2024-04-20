@@ -115,7 +115,7 @@ const NavBar = () => {
               className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               {renderLinks()}
-              <ThemeToggle scale={1.7} className="pb-3 pr-20 pl-6 pt-4" />
+              <ThemeToggle scale={1.7} className="pb-2 pr-20 pl-6 pt-5" />
             </ul>
           )}
         </div>
