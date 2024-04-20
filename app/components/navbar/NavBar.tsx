@@ -95,7 +95,7 @@ const NavBar = () => {
       }`}
       style={{ visibility: isMobile ? "visible" : undefined }}
     >
-      <Link className="pt-2" href="/">
+      <Link className="pt-2 pl-3" href="/">
         <FaCode size={25} />
       </Link>
       {isMobile ? (
