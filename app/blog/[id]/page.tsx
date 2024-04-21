@@ -12,6 +12,8 @@ import "highlight.js/styles/github.css";
 import TypingAnimation from "@/app/TypingAnimation.client";
 import ShareDropdown from "../components/shareDropdown";
 
+import "@/app/globals.css"
+
 const getBlogById = async (id: string) => {
   const res = await fetch(`/api/blog/${id}`);
   const data = await res.json();
@@ -88,7 +90,7 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
               </h2>
               <ReactMarkdown
                 rehypePlugins={[rehypeHighlight]}
-                className="prose lg:prose-xl p-6"
+                className="prose lg:prose-xl p-6 markdown"
               >
                 {blog.content}
               </ReactMarkdown>

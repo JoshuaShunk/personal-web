@@ -92,3 +92,7 @@ html.dark .research-invert {
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
+
+.markdown > * {
+  all: revert;
+}
