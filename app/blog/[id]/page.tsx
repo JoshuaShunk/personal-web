@@ -97,7 +97,7 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
             </div>
             {/* Share button on the right */}
             <div className="flex-shrink-0 pt-10 pl-6">
-              <div className="relative">
+              <div className="relative pr-2">
                 <div className="border-b border-gray-200 pb-2">
                   <h3 className="text-lg font-semibold">Quick Links</h3>
                 </div>
