@@ -39,7 +39,7 @@ const ShareDropdown = ({ url, title }: ShareDropdownProps) => {
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left pr-2">
       <button
         onClick={toggleDropdown}
         className="flex items-center justify-center p-2 rounded-md hover:bg-gray-100"
@@ -48,7 +48,7 @@ const ShareDropdown = ({ url, title }: ShareDropdownProps) => {
         Share
       </button>
       {isOpen && (
-        <div className="absolute left-0 z-10 mt-2 rounded-md shadow-lg bg-white ring-black ring-opacity-5 overflow-hidden w-full">
+        <div className="absolute left-0 z-10 mt-2 rounded-md shadow-lg ring-black ring-opacity-5 overflow-hidden w-full">
           <div className="flex flex-wrap items-center justify-center p-3">
             <FacebookShareButton url={url} className="m-1">
               <FacebookIcon size={32} round />
