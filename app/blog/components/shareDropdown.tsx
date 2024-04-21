@@ -42,7 +42,7 @@ const ShareDropdown = ({ url, title }: ShareDropdownProps) => {
     <div className="relative inline-block text-left pr-2">
       <button
         onClick={toggleDropdown}
-        className="flex items-center justify-center p-2 rounded-md hover:bg-gray-100"
+        className="flex items-center justify-center p-2 rounded-md hover:bg-gray-400"
       >
         <CiShare2 className="mr-2" size={30} />
         Share
