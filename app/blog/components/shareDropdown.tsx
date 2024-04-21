@@ -64,7 +64,7 @@ const ShareDropdown = ({ url, title }: ShareDropdownProps) => {
             </EmailShareButton>
             <IoMdLink
               size={32}
-              className="cursor-pointer m-1"
+              className="cursor-pointer m-1 transition-transform duration-150 ease-in-out active:scale-90"
               onClick={copyToClipboard}
             />
           </div>
