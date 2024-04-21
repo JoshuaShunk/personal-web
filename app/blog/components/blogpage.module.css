@@ -1,0 +1,9 @@
+.flex-shrink-0 {
+  flex-shrink: 1; /* Allow shrinking to avoid overflow */
+}
+@media (max-width: 640px) {
+  .parent-container {
+    padding-left: 1rem; /* Reduce left padding */
+    padding-top: 1rem;  /* Reduce top padding */
+  }
+}

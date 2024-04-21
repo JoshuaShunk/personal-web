@@ -43,6 +43,7 @@
 }
 
 
+
 /* Applying themes using class selectors */
 .light-mode {
   --text-color: #000000;       /* Light theme text color */
