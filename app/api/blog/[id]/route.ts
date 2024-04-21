@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB, disconnectDB } from "../../../../utils/databse";
 import prisma from "@/prisma";
 
+// This comment to test api cache prediciton
 export const GET = async (req: Request, res: NextResponse) => {
   try {
     const id = req.url.split("/blog/")[1];
