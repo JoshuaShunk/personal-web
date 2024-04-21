@@ -3,7 +3,7 @@ import { connectDB, disconnectDB } from "../../../utils/databse";
 
 import { NextResponse } from "next/server";
 
-export const GET = async (req: Request, res: Response) => {
+export const GET = async (req: Request, res: NextResponse) => {
     try {
         await connectDB();
         const post = await prisma.post.findMany();
