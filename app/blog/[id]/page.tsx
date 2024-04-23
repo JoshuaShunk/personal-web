@@ -12,7 +12,7 @@ import "highlight.js/styles/github.css";
 import TypingAnimation from "@/app/TypingAnimation.client";
 import ShareDropdown from "../components/shareDropdown";
 
-import "@/app/globals.css"
+import "@/app/globals.css";
 
 const getBlogById = async (id: string) => {
   const res = await fetch(`/api/blog/${id}`);
@@ -28,6 +28,7 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
     description: "",
     content: "",
     date: "",
+    image: "", // Added imageUrl field
   });
 
   // Inside your component
@@ -45,13 +46,14 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
         setBlog({
           title: data.title,
           description: data.description,
-          content: data.content || "No additional content provided.", // Handling potentially undefined content
+          content: data.content || "No additional content provided.",
           date: new Date(data.date).toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
             month: "long",
             day: "numeric",
-          }), // Formatting date
+          }),
+          image: data.image, // Set the image URL from the fetched data
         });
         toast.success("Fetching Complete", { id: "1" });
       })
@@ -64,7 +66,7 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
   return (
     <Fragment>
       <Toaster />
-      <main className="min-h-screen ">
+      <main className="min-h-screen">
         <header className="py-8 mb-12 shadow">
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-sm breadcrumbs mb-4">
@@ -85,6 +87,24 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
         <div className="w-full max-w-7xl mx-auto my-4">
           <div className="flex justify-between items-start">
             <div className="w-full">
+              <div className="w-full">
+                <div className="relative pb-2 pl-5 pr-5">
+                  {blog.image && (
+                    <img
+                      src={blog.image}
+                      alt={`Cover for ${blog.title}`}
+                      style={{
+                        maxHeight: "300px",
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "cover",
+                      }}
+                      className="rounded-lg"
+                    />
+                  )}
+                </div>
+              </div>
+
               <h2 className="prose lg:prose-xl p-6 font-bold text-2xl">
                 {blog.description}
               </h2>

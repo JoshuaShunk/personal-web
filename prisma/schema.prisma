@@ -18,6 +18,8 @@ model Post {
   title       String
   description String
   content     String?  // Optional content field
+  image       String?
   date        DateTime @default(now())
 }
+
 

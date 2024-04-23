@@ -9,6 +9,7 @@ interface Post {
   title: string;
   date: string;
   description: string;
+  image?: string; // Optional image URL field
 }
 
 async function fetchBlogs(): Promise<Post[]> {
@@ -66,13 +67,20 @@ export default function Home() {
           {posts.slice(1).map((post) => (
             <article
               key={post.id}
-              className=" shadow-md hover:shadow-lg rounded-lg p-6 transition duration-200 ease-in-out"
+              className="shadow-md hover:shadow-lg rounded-lg p-6 transition duration-200 ease-in-out"
             >
               <div className="flex flex-col justify-between h-full">
-                <div>
+                {post.image && (
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                  />
+                )}
+                <div className="flex justify-between items-center mt-3">
                   <Link
                     href={`/blog/${post.id}`}
-                    className="text-2xl font-semibold hover:text-blue-600"
+                    className="text-2xl font-semibold hover:text-blue-600 flex-grow"
                   >
                     {post.title}
                   </Link>
