@@ -3,7 +3,7 @@ import { connectDB, disconnectDB } from "../../../utils/databse";
 
 import { NextResponse } from "next/server";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export const GET = async (req: Request, res: NextResponse) => {
     try {
