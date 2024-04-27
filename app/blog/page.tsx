@@ -1,39 +1,39 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import TypingAnimation from "../TypingAnimation.client";
+
+import { fetcher } from "./components/fetcher";
 
 interface Post {
   id: number;
   title: string;
   date: string;
   description: string;
-  image?: string; // Optional image URL field
-}
-
-async function fetchBlogs(): Promise<Post[]> {
-  const res = await fetch("/api/blog", {
-    method: "GET",
-    headers: { "Content-Type": "application/json" },
-  });
-  const data = await res.json();
-  return data.post;
+  image?: string;
 }
 
 export default function Home() {
-  const [posts, setPosts] = React.useState<Post[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [posts, setPosts] = useState<Post[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     async function loadPosts() {
-      const fetchedPosts = await fetchBlogs();
+      const fetchedPosts = await fetcher("/api/blog");
       setPosts(fetchedPosts);
     }
     loadPosts();
   }, []);
 
+  const filteredPosts = posts
+    .slice(1) // Assuming the first post is the featured one
+    .filter((post: Post) =>
+      post.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
   return (
-    <main className="min-h-screen ">
+    <main className="min-h-screen">
       <header className="py-8 mb-12 shadow">
         <div className="container max-w-7xl mx-auto px-4 flex flex-wrap justify-between items-center">
           <TypingAnimation text="The Blog" className="text-6xl font-bold" />
@@ -62,9 +62,18 @@ export default function Home() {
           )}
         </div>
       </header>
+      <div className="flex justify-center w-full px-4">
+        <input
+          type="text"
+          placeholder="Search blog posts..."
+          className="p-2 border border-gray-300 rounded-md mb-6 w-full mx-7 sm:w-2/3 md:w-1/2 lg:w-1/3"
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <section className="container max-w-7xl mx-auto px-4 md:mx-0 md:ml-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-8">
-          {posts.slice(1).map((post) => (
+          {filteredPosts.map((post: Post) => (
             <article
               key={post.id}
               className="shadow-md hover:shadow-lg rounded-lg p-6 transition duration-200 ease-in-out"
