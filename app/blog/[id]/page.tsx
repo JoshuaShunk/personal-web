@@ -1,17 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
-
-import { CiShare2 } from "react-icons/ci";
-
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
-import TypingAnimation from "@/app/TypingAnimation.client";
 import ShareDropdown from "../components/shareDropdown";
-
 import "@/app/globals.css";
 
 const getBlogById = async (id: string) => {
@@ -21,21 +15,16 @@ const getBlogById = async (id: string) => {
 };
 
 const ViewBlog = ({ params }: { params: { id: string } }) => {
-  const router = useRouter();
-  // Initializing state with all fields including optional content and date
   const [blog, setBlog] = useState({
     title: "",
     description: "",
     content: "",
     date: "",
-    image: "", // Added imageUrl field
+    image: "",
   });
-
-  // Inside your component
   const [currentUrl, setCurrentUrl] = useState("");
 
   useEffect(() => {
-    // Set the URL once the window is available
     setCurrentUrl(window.location.href);
   }, []);
 
@@ -53,12 +42,12 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
             month: "long",
             day: "numeric",
           }),
-          image: data.image, // Set the image URL from the fetched data
+          image: data.image,
         });
         toast.success("Fetching Complete", { id: "1" });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         toast.error("Error fetching blog", { id: "1" });
       });
   }, [params.id]);
@@ -84,39 +73,43 @@ const ViewBlog = ({ params }: { params: { id: string } }) => {
           </div>
         </header>
 
-        <div className="w-full max-w-7xl mx-auto my-4">
-          <div className="flex justify-between items-start">
-            <div className="w-full">
-              <div className="w-full">
-                <div className="relative pb-2 pl-5 pr-5">
-                  {blog.image && (
-                    <img
-                      src={blog.image}
-                      alt={`Cover for ${blog.title}`}
-                      style={{
-                        maxHeight: "300px",
-                        width: "100%",
-                        height: "auto",
-                        objectFit: "cover",
-                      }}
-                      className="rounded-lg"
-                    />
-                  )}
-                </div>
-              </div>
+        {/* Mobile Share Button */}
+        <div className="block sm:hidden max-w-7xl mx-auto px-4 mb-4">
+          <ShareDropdown url={currentUrl} title={blog.title} isMobile />
+        </div>
 
+        <div className="w-full max-w-7xl mx-auto my-4">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-between items-start">
+            {/* Blog content column */}
+            <div className="flex-1 max-w-3xl">
+              <div className="relative pb-2 px-4 sm:px-5">
+                {blog.image && (
+                  <img
+                    src={blog.image}
+                    alt={`Cover for ${blog.title}`}
+                    style={{
+                      maxHeight: "300px",
+                      width: "100%",
+                      height: "auto",
+                      objectFit: "cover",
+                    }}
+                    className="rounded-lg max-w-full"
+                  />
+                )}
+              </div>
               <h2 className="prose lg:prose-xl p-6 font-bold text-2xl">
                 {blog.description}
               </h2>
+              {/* Use only break-words, remove break-all */}
               <ReactMarkdown
                 rehypePlugins={[rehypeHighlight]}
-                className="prose lg:prose-xl p-6 markdown"
+                className="prose lg:prose-xl p-6 markdown break-words"
               >
                 {blog.content}
               </ReactMarkdown>
             </div>
-            {/* Share button on the right */}
-            <div className="flex-shrink-0 pt-10 pl-6">
+            {/* Desktop Share Button */}
+            <div className="hidden sm:block flex-shrink-0 pt-10 pl-6">
               <div className="relative pr-2">
                 <div className="border-b border-gray-200 pb-2">
                   <h3 className="text-lg font-semibold">Quick Links</h3>

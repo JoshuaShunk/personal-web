@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import TypingAnimation from "../TypingAnimation.client";
-
 import { fetcher } from "./components/fetcher";
 
 interface Post {
@@ -83,7 +82,7 @@ export default function Home() {
                   <img
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-48 object-cover rounded-t-lg"
+                    className="w-full h-48 object-cover rounded-t-lg max-w-full"
                   />
                 )}
                 <div className="flex justify-between items-center mt-3">

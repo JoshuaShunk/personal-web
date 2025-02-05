@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import {
   FacebookShareButton,
@@ -11,18 +13,21 @@ import {
   EmailIcon,
   TwitterIcon,
 } from "react-share";
-
 import { CiShare2 } from "react-icons/ci";
 import { IoMdLink } from "react-icons/io";
-
 import "./blogpage.module.css";
 
 interface ShareDropdownProps {
   url: string;
   title: string;
+  isMobile?: boolean;
 }
 
-const ShareDropdown = ({ url, title }: ShareDropdownProps) => {
+const ShareDropdown = ({
+  url,
+  title,
+  isMobile = false,
+}: ShareDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -38,6 +43,16 @@ const ShareDropdown = ({ url, title }: ShareDropdownProps) => {
       });
   };
 
+  // Updated for mobile to position underneath the button, preventing horizontal overflow
+  const dropdownClasses = isMobile
+    ? "absolute left-0 top-full mt-2 z-10 rounded-md shadow-lg ring-black ring-opacity-5 overflow-hidden bg-white"
+    : "absolute left-0 mt-2 z-10 rounded-md shadow-lg ring-black ring-opacity-5 overflow-hidden bg-white";
+
+  // Flex direction for the icons container:
+  const iconsContainerClasses = isMobile
+    ? "flex flex-row items-center justify-center p-3"
+    : "flex flex-col items-center justify-center p-3";
+
   return (
     <div className="relative inline-block text-left pr-2">
       <button
@@ -48,8 +63,8 @@ const ShareDropdown = ({ url, title }: ShareDropdownProps) => {
         Share
       </button>
       {isOpen && (
-        <div className="absolute left-0 z-10 mt-2 rounded-md shadow-lg ring-black ring-opacity-5 overflow-hidden w-full">
-          <div className="flex flex-wrap items-center justify-center p-3">
+        <div className={dropdownClasses}>
+          <div className={iconsContainerClasses}>
             <FacebookShareButton url={url} className="m-1">
               <FacebookIcon size={32} round />
             </FacebookShareButton>

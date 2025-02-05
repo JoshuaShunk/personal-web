@@ -9,7 +9,7 @@
 
   --text-active-dark: #ffffff;  /* Active text color in dark mode */
   --text-inactive-dark: #71717a; /* Inactive text color in dark mode */
-  --text-hover-dark: #cbd5e0;  /* Hover text color in dark mode */
+  --text-hover-dark: #cbd5e0;   /* Hover text color in dark mode */
 
   --text-active-light: #1a202c; /* Active text color in light mode */
   --text-inactive-light: #71717a; /* Inactive text color in light mode */
@@ -42,18 +42,16 @@
   --text-color: #000;
 }
 
-
-
 /* Applying themes using class selectors */
 .light-mode {
-  --text-color: #000000;       /* Light theme text color */
+  --text-color: #000000;       
   --text-active: var(--text-active-light);
   --text-inactive: var(--text-inactive-light);
   --text-hover: var(--text-hover-light);
 }
 
 .dark-mode {
-  --text-color: #ffffff;       /* Dark theme text color */
+  --text-color: #ffffff;
   --text-active: var(--text-active-dark);
   --text-inactive: var(--text-inactive-dark);
   --text-hover: var(--text-hover-dark);
@@ -63,6 +61,8 @@ html, body {
   background-color: var(--background-color);
   color: var(--text-color);
   min-height: 100vh;
+  margin: 0; /* Ensure no default body margin */
+  padding: 0;
 }
 
 .radix-themes {
@@ -93,6 +93,30 @@ html.dark .research-invert {
   animation: blink 1s step-end infinite;
 }
 
+/* --------------------- */
+/* Markdown formatting   */
+/* --------------------- */
+
+/* Revert all basic styles first for .markdown content: */
 .markdown > * {
   all: revert;
+}
+
+/* Ensure images scale properly within markdown */
+.markdown img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code blocks & text wrapping to prevent horizontal scroll */
+.markdown pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  /* If needed, a bit of padding: */
+  padding: 1rem;
+}
+
+.markdown code {
+  white-space: pre-wrap;
+  word-break: break-word;
 }

@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "next-themes";
-
 import NavBar from "./components/navbar/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,7 +13,6 @@ export const metadata: Metadata = {
   description: "Personal website created to show off my projects and resume.",
 };
 
-// This function will be a raw JavaScript to set theme before React loads
 const setInitialTheme = `
 (function() {
   var theme = localStorage.getItem('theme') || document.documentElement.getAttribute('data-theme') || 'light';
@@ -33,12 +31,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <style>{`body { display: none; }`}</style> {/* Prevent FOUC */}
+        {/* Ensure the viewport meta tag is here */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>{`body { display: none; }`}</style>
         <script dangerouslySetInnerHTML={{ __html: setInitialTheme }} />
       </head>
       <body
-        className={`bg-theme-background text-theme-text ${inter.className}`}
-        style={{ display: "block" }} /* Re-enable display after theme is set */
+        className={`bg-theme-background text-theme-text ${inter.className} overflow-x-hidden`}
+        style={{ display: "block" }}
       >
         <ThemeProvider
           attribute="class"
@@ -48,7 +48,7 @@ export default function RootLayout({
           storageKey="theme"
         >
           <NavBar />
-          <main className="py-20">{children}</main>
+          <main className="py-5">{children}</main>
         </ThemeProvider>
       </body>
     </html>
